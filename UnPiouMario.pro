@@ -21,6 +21,7 @@ SOURCES += \
     entite.cpp \
     joueur.cpp \
     main.cpp \
+    objetcarte.cpp \
     piege.cpp \
     view.cpp
 
@@ -29,6 +30,7 @@ HEADERS += \
     ennemi.h \
     entite.h \
     joueur.h \
+    objetcarte.h \
     piege.h \
     view.h
 
