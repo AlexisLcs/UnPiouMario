@@ -16,10 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    carte.cpp \
+    ennemi.cpp \
+    entite.cpp \
+    joueur.cpp \
     main.cpp \
+    objetcarte.cpp \
+    piege.cpp \
     view.cpp
 
 HEADERS += \
+    carte.h \
+    ennemi.h \
+    entite.h \
+    joueur.h \
+    objetcarte.h \
+    piege.h \
     view.h
 
 FORMS += \
