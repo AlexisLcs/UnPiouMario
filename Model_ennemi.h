@@ -1,7 +1,7 @@
 #ifndef ENNEMI_H
 #define ENNEMI_H
 
-#include "entite.h"
+#include "Model_entite.h"
 
 class Ennemi : public Entite
 {

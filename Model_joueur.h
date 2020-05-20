@@ -1,6 +1,6 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
-#include "entite.h"
+#include "Model_entite.h"
 
 class Joueur : public Entite
 {

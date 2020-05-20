@@ -1,4 +1,4 @@
-#include "entite.h"
+#include "Model_entite.h"
 
 //contructeur par défaut
 Entite::Entite()

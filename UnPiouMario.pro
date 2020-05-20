@@ -16,7 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    carte.cpp \
+    Controler_moteur.cpp \
+    Model_carte.cpp \
+    Model_ennemi.cpp \
+    Model_entite.cpp \
+    Model_joueur.cpp \
+    Model_objetcarte.cpp \
+    Model_piege.cpp \
     ennemi.cpp \
     entite.cpp \
     joueur.cpp \
@@ -26,7 +32,13 @@ SOURCES += \
     view.cpp
 
 HEADERS += \
-    carte.h \
+    Controler_moteur.h \
+    Model_carte.h \
+    Model_ennemi.h \
+    Model_entite.h \
+    Model_joueur.h \
+    Model_objetcarte.h \
+    Model_piege.h \
     ennemi.h \
     entite.h \
     joueur.h \

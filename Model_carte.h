@@ -4,8 +4,8 @@
 #include <QList>
 #include <QString>
 
-#include "objetcarte.h"
-#include "piege.h"
+#include "Model_objetcarte.h"
+#include "Model_piege.h"
 
 
 class Carte
