@@ -1,4 +1,5 @@
 #include "Controler_moteur.h"
+#include "Controler_JsonFile.h"
 
 #include <QDirIterator>
 #include <QGraphicsPixmapItem>
@@ -20,16 +21,19 @@ Moteur::Moteur()
 void Moteur::loadingGame()
 {
 
-//    //create an item
-//    Charac * charac = new Charac();
-//    charac->setRect(0,0,100,100);
+    //lecture des données de jeu
+    QJsonObject all_data = Controler_JsonFile::readJson();
 
-//    //add the item to the scene
-//    scene->addItem(charac);
+    //on parkouuuuuuuuuuuuuur tous les objets présent dans les données du jeu
 
-//    //make charac focusable (only one outa time)
-//    charac->setFlag(QGraphicsItem::ItemIsFocusable);
-//    charac->setFocus();
+
+
+
+
+
+
+
+
 
     //on charge une image
     QGraphicsPixmapItem item;

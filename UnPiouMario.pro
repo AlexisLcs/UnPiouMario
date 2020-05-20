@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Controler_JsonFile.cpp \
     Controler_moteur.cpp \
     Model_carte.cpp \
     Model_ennemi.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     view.cpp
 
 HEADERS += \
+    Controler_JsonFile.h \
     Controler_moteur.h \
     Model_carte.h \
     Model_ennemi.h \
