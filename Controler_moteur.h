@@ -1,6 +1,7 @@
 ﻿#ifndef MOTEUR_H
 #define MOTEUR_H
 
+#include "Model_carte.h"
 #include <QGraphicsScene>
 
 
@@ -11,6 +12,7 @@ class Moteur
 private:
     QGraphicsScene *scene = NULL;
     QGraphicsView  *view = NULL;
+    Carte *carte = NULL;
 
 public:
 

@@ -13,6 +13,7 @@ Moteur::Moteur()
 {
     scene = new QGraphicsScene();
     view = new QGraphicsView(scene);
+    carte = new Carte();
 }
 
 
