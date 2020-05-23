@@ -48,18 +48,7 @@ QJsonObject Controler_JsonFile::getMap(QJsonObject all)
     return all["map"].toObject();
 }
 
-/**
- * @brief Controler_JsonFile::getPieges
- *
- * @param all
- * @return
- */
 QJsonObject Controler_JsonFile::getPieges(QJsonObject all)
 {
     return all["pieges"].toObject();
-}
-
-QJsonObject Controler_JsonFile::getObjects(QJsonObject all)
-{
-    return all["objects"].toObject();
 }

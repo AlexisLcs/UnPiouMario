@@ -15,6 +15,7 @@ public:
     static QJsonObject getMario(QJsonObject all);
     static QJsonObject getMap(QJsonObject all);
     static QJsonObject getPieges(QJsonObject all);
+    static QJsonObject getObjects(QJsonObject all);
 
 
 };
