@@ -28,12 +28,12 @@ Entity::Entity(Mario * mario)
     inputTimer = new QTimer(this);
 
     connect(inputTimer, SIGNAL(timeout()), this,
-            SLOT(printNul()));
+            SLOT(marioInput()));
 
     inputTimer->start(50);
 }
 
-void Entity::printNul()
+void Entity::marioInput()
 {
     mario->timerOutEvent();
 }

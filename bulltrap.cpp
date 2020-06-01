@@ -4,7 +4,7 @@ BullTrap::BullTrap( int length, QString fileL, QString fileR, int posX, int posY
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\test\\images\\traps\\" + fileL);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\traps\\" + fileL);
     this->posX = posX;
     this->posY = posY;
     this->fileL = fileL;

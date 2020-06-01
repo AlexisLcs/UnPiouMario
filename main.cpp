@@ -38,7 +38,7 @@ QJsonObject readJson()
 {
     QString val;
     QFile file;
-    file.setFileName("D:\\Utilisateurs\\Enseignement\\POLYTECH\\S8\\Qt - Gilles Blanc\\TP\\test\\map.json");
+    file.setFileName("D:\\Félix\\Documents\\Polytech 4A\\S8\\QT\\Projet_UnfairMario\\UnPiouMario\\map.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
@@ -79,6 +79,6 @@ int main(int argc, char *argv[])
     view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
     view.show();
     center(view);
-    qDebug() << "App path : " << qApp->applicationDirPath();
+    //qDebug() << "App path : " << qApp->applicationDirPath();
     return a.exec();
 }

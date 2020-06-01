@@ -5,7 +5,7 @@ BombeTrap::BombeTrap( int length, QString file, int posX, int posY, QGraphicsIte
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\test\\images\\traps\\" + file);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\traps\\" + file);
     this->posX = posX;
     this->posY = posY;
     this->name = "bombetrap";

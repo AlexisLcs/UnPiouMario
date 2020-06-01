@@ -4,7 +4,7 @@ BrickTrap::BrickTrap( int length, QString file, int posX, int posY, QString acti
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\test\\images\\objects\\hide" + file);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\hide" + file);
     this->posX = posX;
     this->posY = posY;
     this->activation = activation;
