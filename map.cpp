@@ -110,6 +110,7 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
 
 
 void Map::initPlayField(){
+    qDebug() << "init map";
 
     setSceneRect(0,0,8000,790);
 
@@ -193,10 +194,14 @@ void Map::initPlayField(){
         qDebug() << bullTrap;
     }
 
+    QPixmap pixMario("..\\UnPiouMario\\images\\mario\\mario_stop.png");
+    this->myMario->getMario()->setPixmap(pixMario);
     this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(), this->myMario->getMario()->getPosY());
     addItem(this->myMario->getMario());
     this->myMario->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
     this->myMario->getMario()->setFocus();
+
+    qDebug() << "init ok";
 }
 
 
@@ -204,6 +209,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left){
 
+        this->myMario->getMario()->moveLeft();
         this->myMario->getMario()->getInputMap()[Qt::Key_Left] = true;
         qDebug() << "appui left";
 
@@ -212,6 +218,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     if(event->key() == Qt::Key_Right){
+        this->myMario->getMario()->moveRight();
         this->myMario->getMario()->getInputMap()[Qt::Key_Right] = true;
         qDebug() << "appui right";
 
@@ -219,6 +226,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     if(event->key() == Qt::Key_Up){
+        this->myMario->getMario()->Jump();
         this->myMario->getMario()->getInputMap()[Qt::Key_Up] = true;
         qDebug() << "appui up";
 
