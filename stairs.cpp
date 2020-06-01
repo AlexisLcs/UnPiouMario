@@ -5,7 +5,7 @@ Stairs::Stairs( int length, QString file, int posX, int posY, int size, QGraphic
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\test\\images\\objects\\" + file);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\" + file);
     this->posX = posX;
     this->posY = posY;
     this->size = size;

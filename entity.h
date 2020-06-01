@@ -26,7 +26,7 @@ public:
     void setInputTimer(QTimer *value);
 
 public slots:
-    void printNul();
+    void marioInput();
 
 };
 

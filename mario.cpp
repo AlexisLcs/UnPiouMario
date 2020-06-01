@@ -5,7 +5,7 @@
 Mario::Mario(QString file, int posX, int posY)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\test\\images\\mario\\" + file);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\mario\\" + file);
     this->posX = posX;
     this->posY = posY;
     velocity[0] = 3;
@@ -169,6 +169,7 @@ void Mario::timerOutEvent()
         Jump();
     }
 }
+
 
 
 

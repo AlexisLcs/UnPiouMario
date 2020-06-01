@@ -38,7 +38,7 @@ QJsonObject readJson()
 {
     QString val;
     QFile file;
-    file.setFileName("C:\\Users\\4Lucas\\Desktop\\Made By Alexis\\saucisse\\map.json");
+    file.setFileName("..\\UnPiouMario\\map.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
@@ -76,9 +76,9 @@ int main(int argc, char *argv[])
 
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    view.setWindowTitle("UnPiouMario");
+    view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
     view.show();
     center(view);
-    qDebug() << "App path : " << qApp->applicationDirPath();
+    //qDebug() << "App path : " << qApp->applicationDirPath();
     return a.exec();
 }
