@@ -16,14 +16,49 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    backgroundItem.cpp \
+    bombetrap.cpp \
+    brick.cpp \
+    bricktrap.cpp \
+    bulltrap.cpp \
+    castle.cpp \
+    entity.cpp \
+    flagEND.cpp \
     main.cpp \
-    view.cpp
+    map.cpp \
+    mario.cpp \
+    pipe.cpp \
+    sol.cpp \
+    soltrap.cpp \
+    soundmanager.cpp \
+    spikes.cpp \
+    stairs.cpp \
+    superbrick.cpp
 
 HEADERS += \
-    view.h
+    backgroundItem.h \
+    bombetrap.h \
+    brick.h \
+    bricktrap.h \
+    bulltrap.h \
+    castle.h \
+    entity.h \
+    flagEND.h \
+    map.h \
+    mario.h \
+    mario.h \
+    objectype.h \
+    pipe.h \
+    sol.h \
+    soltrap.h \
+    soundmanager.h \
+    spikes.h \
+    stairs.h \
+    superbrick.h
 
-FORMS += \
-    view.ui
+FORMS +=
+
+QT += multimedia
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
