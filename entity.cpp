@@ -30,7 +30,7 @@ Entity::Entity(Mario * mario)
     connect(inputTimer, SIGNAL(timeout()), this,
             SLOT(marioInput()));
 
-    inputTimer->start(50);
+    inputTimer->start(16);
 }
 
 void Entity::marioInput()

@@ -8,7 +8,7 @@ Mario::Mario(QString file, int posX, int posY)
     mPixmap = QPixmap("..\\UnPiouMario\\images\\mario\\" + file);
     this->posX = posX;
     this->posY = posY;
-    velocity[0] = 3;
+    velocity[0] = 10;
     velocity[1] = MAXHEIGHT;
     gravity[1] = 1;
 }
