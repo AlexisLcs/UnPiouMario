@@ -42,7 +42,7 @@ int Spikes::getPosY() {
 }
 
 void Spikes::setPixMap(QString file) {
-    this->mPixmap = QPixmap("..\\test\\images\\traps\\" + file);
+    this->mPixmap = QPixmap("..\\UnPiouMario\\images\\traps\\" + file);
 }
 
 QString Spikes::getName() {

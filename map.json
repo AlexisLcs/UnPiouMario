@@ -107,6 +107,12 @@
 	  "length":"1",
 	  "image": "castle.png"
 	},
+	"castleR": {
+	  "posX":"7875",
+	  "posY":"525",
+	  "length":"1",
+	  "image": "castleRigth.png"
+	},
 	"flagEND": {
 	  "posX":"7650",
 	  "posY":"266",

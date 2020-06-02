@@ -84,6 +84,7 @@ void Mario::moveLeft()
         Jump();
 
     setPos(x() - this->velocity[0],y());
+    this->posX -= this->velocity[0];
 }
 
 void Mario::moveRight()
@@ -92,6 +93,7 @@ void Mario::moveRight()
         Jump();
 
     setPos(x() + this->velocity[0],y());
+    this->posX += this->velocity[0];
 }
 
 //ATTENTION : quand on appelle cette méthode on suppose que isJumping == true
@@ -111,6 +113,7 @@ void Mario::Jump()
         if(this->velocity[1] > 0 && !isFalling)
         {
             setPos(x(),y()-this->velocity[1]); //changement coord
+            this->posY -= this->velocity[1];
             this->velocity[1] = this->velocity[1]-this->gravity[1]; //
         }
         //passage en mode "chute"
@@ -119,6 +122,7 @@ void Mario::Jump()
                 isFalling = true;
             }
             setPos(x(),y()+this->velocity[1]);
+            this->posY += this->velocity[1];
             this->velocity[1] = this->velocity[1]+this->gravity[1];
         }
         else if(this->velocity[1] == MAXHEIGHT+1 && isFalling) {

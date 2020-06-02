@@ -71,14 +71,16 @@ int main(int argc, char *argv[])
     Map * scenemap = new Map(scroll, listeAll, scene);
 
     view.setScene(scenemap);
-
     view.setBackgroundBrush(QColor(111, 135, 249));
-
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
     view.show();
+    scenemap->initScroll();
+
     center(view);
+
     //qDebug() << "App path : " << qApp->applicationDirPath();
     return a.exec();
 }

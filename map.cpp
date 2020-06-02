@@ -3,9 +3,10 @@
 
 static bool DEV_ON = false;
 
-Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,790, parent)
+Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,780, parent), scroll(s)
 {
-    this->scroll = s;
+    this->scroll->setValue(0);
+    this->scroll->update();
     this->listAll = listAll;
     initPlayField();
     m_timer = new QTimer(this);
@@ -100,6 +101,11 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
         listeRetour->append(item);
     }
 
+    if(name == "castleR"){
+        Castle * item = new Castle(listeObject["length"].toString().toInt(), listeObject["image"].toString(), listeObject["posX"].toString().toInt(), listeObject["posY"].toString().toInt());
+        listeRetour->append(item);
+    }
+
     if(name == "flagEND"){
         FlagEND * item = new FlagEND(listeObject["length"].toString().toInt(), listeObject["image"].toString(), listeObject["posX"].toString().toInt(), listeObject["posY"].toString().toInt());
         listeRetour->append(item);
@@ -112,7 +118,7 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
 void Map::initPlayField(){
     qDebug() << "init map";
 
-    setSceneRect(0,0,8000,790);
+    setSceneRect(0,0,8000,780);
 
     QList<Sol*> * listSols = (QList<Sol*>*)getGraphicsItem("sol");
     QList<Brick*> * listBricks = (QList<Brick*>*)getGraphicsItem("bricks");
@@ -127,6 +133,9 @@ void Map::initPlayField(){
     QList<BombeTrap*> * listBombesTraps = (QList<BombeTrap*>*)getGraphicsItem("bombstrap");
     QList<Stairs*> * listStairs = (QList<Stairs*>*)getGraphicsItem("stairs");
     QList<BullTrap*> * listBullTrap = (QList<BullTrap*>*)getGraphicsItem("bulltrap");
+    QList<Castle*> * listeCastleRight = (QList<Castle*>*)getGraphicsItem("castleR");
+
+
 
     Q_FOREACH(Sol * sol, *listSols){
         sol->setPos(sol->getPosX(), sol->getPosY());
@@ -201,17 +210,19 @@ void Map::initPlayField(){
     this->myMario->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
     this->myMario->getMario()->setFocus();
 
-    qDebug() << "init ok";
+
+    Q_FOREACH(Castle * castle, *listeCastleRight){
+        castle->setPos(castle->getPosX(), castle->getPosY());
+        addItem(castle);
+    }
 }
 
 
 void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left){
-
         this->myMario->getMario()->moveLeft();
         this->myMario->getMario()->getInputMap()[Qt::Key_Left] = true;
-        qDebug() << "appui left";
 
         collisionMario();
 
@@ -220,7 +231,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Right){
         this->myMario->getMario()->moveRight();
         this->myMario->getMario()->getInputMap()[Qt::Key_Right] = true;
-        qDebug() << "appui right";
 
         collisionMario();
     }
@@ -228,7 +238,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Up){
         this->myMario->getMario()->Jump();
         this->myMario->getMario()->getInputMap()[Qt::Key_Up] = true;
-        qDebug() << "appui up";
 
         collisionMario();
     }
@@ -236,26 +245,46 @@ void Map::keyPressEvent(QKeyEvent *event) {
 
 void Map::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Left)
-        this->myMario->getMario()->getInputMap()[Qt::Key_Left] = false;
+    if(event->key() == Qt::Key_Left){
+        if(this->myMario->getMario()->getPosX() >= 650){
+            this->setValueScroll(this->scroll->value() - 10);
+            collisionMario();
+        }
+        else{
+            this->myMario->getMario()->getInputMap()[Qt::Key_Left] = false;
+            collisionMario();
+        }
+    }
 
-    if(event->key() == Qt::Key_Right)
-        this->myMario->getMario()->getInputMap()[Qt::Key_Right] = false;
+    if(event->key() == Qt::Key_Right){
+        if(this->myMario->getMario()->getPosX() >= 650){
+            this->setValueScroll(this->scroll->value() + 10);
+            collisionMario();
+        }
+        else{
+            this->myMario->getMario()->getInputMap()[Qt::Key_Right] = false;
+            collisionMario();
+        }
+    }
 
-    if(event->key() == Qt::Key_Up)
+    if(event->key() == Qt::Key_Up){
         this->myMario->getMario()->getInputMap()[Qt::Key_Up] = false;
-
+        collisionMario();
+    }
 }
 
 
 void Map::collisionMario(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
+        qDebug() << item;
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             playSound("spikes");
+            qDebug() << spike->getFilename();
             spike->setPixMap(spike->getFilename());
         }
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
+            qDebug() << solTrap;
             solTrap->setVisible(false);
         }
         else if(BrickTrap * brickTrap = qgraphicsitem_cast<BrickTrap *>(item)){
@@ -276,6 +305,14 @@ void Map::playSound(QString sound){
     if(sound == "spikes"){
         this->soundManager->spikes.play();
     }
+}
+
+void Map::initScroll(){
+    this->scroll->setValue(0);
+}
+
+void Map::setValueScroll(int value){
+    this->scroll->setValue(value);
 }
 
 void Map::timerEvent(QTimerEvent *){

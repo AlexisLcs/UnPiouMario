@@ -39,13 +39,15 @@ public:
     void keyPressEvent(QKeyEvent * event);
     void keyReleaseEvent(QKeyEvent * event);
     void playSound(QString sound);
+    void initScroll();
+    void setValueScroll(int value);
 
 private:
     void initPlayField();
     QJsonObject listAll;
-    QScrollBar * scroll;
     QTimer * m_timer;
     Entity * myMario;
+    QScrollBar * scroll;
     SoundManager * soundManager;
 
 
