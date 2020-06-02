@@ -211,7 +211,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
 
         this->myMario->getMario()->moveLeft();
         this->myMario->getMario()->getInputMap()[Qt::Key_Left] = true;
-        qDebug() << "appui left";
 
         collisionMario();
 
@@ -220,7 +219,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Right){
         this->myMario->getMario()->moveRight();
         this->myMario->getMario()->getInputMap()[Qt::Key_Right] = true;
-        qDebug() << "appui right";
 
         collisionMario();
     }
@@ -228,7 +226,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Up){
         this->myMario->getMario()->Jump();
         this->myMario->getMario()->getInputMap()[Qt::Key_Up] = true;
-        qDebug() << "appui up";
 
         collisionMario();
     }
@@ -248,7 +245,7 @@ void Map::keyReleaseEvent(QKeyEvent *event)
 }
 
 
-void Map::collisionMario(){
+void Map::collisionMarioTraps(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
@@ -268,6 +265,54 @@ void Map::collisionMario(){
                     brickTrap->setPixMap(brickTrap->getFilename());
                 }
             }
+        }
+    }
+}
+
+void Map::collisionMario(){
+    QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
+    foreach(QGraphicsItem *item, items){
+        if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
+            //Tape bord droit du Pipe
+            qDebug() << "this->myMario->getMario()->getPosX()" << this->myMario->getMario()->getPosX();
+            qDebug() << "this->myMario->getMario()->getPosX() + 50" << this->myMario->getMario()->getPosX() + 50;
+            qDebug() << "this->myMario->getMario()->getPosY()" << this->myMario->getMario()->getPosY();
+            qDebug() << "this->myMario->getMario()->getPosY() + 55" << this->myMario->getMario()->getPosY() + 55;
+            qDebug() << "pipe->getPosX()" << pipe->getPosX();
+            qDebug() << "pipe->getPosX() + 50" << pipe->getPosX() + 75;
+            qDebug() << "pipe->getPosY()" << pipe->getPosY();
+            qDebug() << "pipe->getPosY() + 55" << pipe->getPosY() + 55;
+            if((this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX()) && (this->myMario->getMario()->getPosX() <= pipe->getPosX() + 75) && !(this->myMario->getMario()->getIsFalling())){
+                if(this->myMario->getMario()->getIsLooking()){
+                    this->myMario->getMario()->setGoRight(false);
+                }
+                else {
+                    this->myMario->getMario()->setGoLeft(false);
+                }
+            }
+            else if((this->myMario->getMario()->getPosX() >= pipe->getPosX()) && (this->myMario->getMario()->getPosX() +50 <= pipe->getPosX() + 75) && (this->myMario->getMario()->getPosY() + 55 >= pipe->getPosY())){
+                this->myMario->getMario()->setIsFalling(false);
+                this->myMario->getMario()->setIsJumping(false);
+                this->myMario->getMario()->setGoRight(true);
+                this->myMario->getMario()->setGoLeft(true);
+                this->myMario->getMario()->resetJump();
+            }
+        }
+
+        if(Sol * sol = qgraphicsitem_cast<Sol *>(item)){
+            this->myMario->getMario()->setIsFalling(false);
+            this->myMario->getMario()->setIsJumping(false);
+            this->myMario->getMario()->resetJump();
+        }
+        else if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
+            this->myMario->getMario()->setIsFalling(false);
+            this->myMario->getMario()->setIsJumping(false);
+        }
+        else if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
+
+        }
+        else {
+            this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(),this->myMario->getMario()->getPosY()+this->myMario->getMario()->getVelocity()[1]);
         }
     }
 }

@@ -5,14 +5,16 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QDebug>
+#include "objectype.h"
 
 class Sol : public QGraphicsItem
 {
 public:
+    enum { Type = UserType + solType };
     Sol( int length, QString file, int posX, int posY, int visible,QGraphicsItem *parent = 0);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    int type() const;
+    int type() const {return Type;}
     int getPosX();
     int getPosY();
     int isVisible();

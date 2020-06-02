@@ -1,6 +1,6 @@
 #ifndef MARIO_H
 #define MARIO_H
-#define MAXHEIGHT 20
+#define MAXHEIGHT 23
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -22,6 +22,9 @@ private:
     QPixmap mPixmap;
     bool isJumping = 0;
     bool isFalling = 0;
+    bool goRight = true;
+    bool goLeft = true;
+    bool isLooking; //true vers la droite; false vers la gauche
 
     int running = 0;
     bool isIdle = 0;
@@ -39,14 +42,21 @@ public:
     void setVelocity(const QVector<int> &value);
     QVector<int> getGravity() const;
     void setGravity(const QVector<int> &value);
-    bool getIsJumping() const;
+    bool getIsJumping();
     void setIsJumping(bool value);
-    bool getIsFalling() const;
+    bool getIsFalling();
     void setIsFalling(bool value);
+    bool getGoRight();
+    void setGoRight(bool value);
+    bool getGoLeft();
+    void setGoLeft(bool value);
+    bool getIsLooking();
+    void setIsLooking(bool value);
     QMap<int, bool> getInputMap() const;
     void setInputMap(const QMap<int, bool> &value);
 
     //autres methodes
+    void resetJump();
     void moveRight();
     void moveLeft();
     void Jump();

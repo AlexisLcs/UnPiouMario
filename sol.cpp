@@ -25,10 +25,6 @@ void Sol::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     setTransformOriginPoint(boundingRect().center());
 }
 
-int Sol::type() const {
-    return Type;
-}
-
 int Sol::getPosX() {
     return this->posX;
 }

@@ -8,7 +8,7 @@ Mario::Mario(QString file, int posX, int posY)
     mPixmap = QPixmap("..\\UnPiouMario\\images\\mario\\" + file);
     this->posX = posX;
     this->posY = posY;
-    velocity[0] = 3;
+    velocity[0] = 10;
     velocity[1] = MAXHEIGHT;
     gravity[1] = 1;
 }
@@ -48,7 +48,7 @@ void Mario::setGravity(const QVector<int> &value)
 {
     gravity = value;
 }
-bool Mario::getIsJumping() const
+bool Mario::getIsJumping()
 {
     return isJumping;
 }
@@ -56,13 +56,37 @@ void Mario::setIsJumping(bool value)
 {
     isJumping = value;
 }
-bool Mario::getIsFalling() const
+bool Mario::getIsFalling()
 {
     return isFalling;
 }
 void Mario::setIsFalling(bool value)
 {
     isFalling = value;
+}
+bool Mario::getGoRight()
+{
+    return goRight;
+}
+void Mario::setGoRight(bool value)
+{
+    goRight = value;
+}
+bool Mario::getGoLeft()
+{
+    return goLeft;
+}
+void Mario::setGoLeft(bool value)
+{
+    goLeft = value;
+}
+bool Mario::getIsLooking()
+{
+    return isLooking;
+}
+void Mario::setIsLooking(bool value)
+{
+    isLooking = value;
 }
 QMap<int, bool> Mario::getInputMap() const
 {
@@ -78,20 +102,34 @@ void Mario::setInputMap(const QMap<int, bool> &value)
 
 /*Other methods*/
 
+void Mario::resetJump(){
+    velocity[1] = MAXHEIGHT;
+}
+
 void Mario::moveLeft()
 {
-    if(isJumping)
-        Jump();
+    isLooking = false;
+    if(goLeft){
+        goRight = true;
+        if(isJumping)
+            Jump();
 
-    setPos(x() - this->velocity[0],y());
+        setPos(x() - this->velocity[0],y());
+        this->posX -= this->velocity[0];
+    }
 }
 
 void Mario::moveRight()
 {
-    if(isJumping)
-        Jump();
+    isLooking = true;
+    if(goRight){
+        goLeft = true;
+        if(isJumping)
+            Jump();
 
-    setPos(x() + this->velocity[0],y());
+        setPos(x() + this->velocity[0],y());
+        this->posX += this->velocity[0];
+    }
 }
 
 //ATTENTION : quand on appelle cette méthode on suppose que isJumping == true
@@ -111,6 +149,7 @@ void Mario::Jump()
         if(this->velocity[1] > 0 && !isFalling)
         {
             setPos(x(),y()-this->velocity[1]); //changement coord
+            this->posY -= this->velocity[1];
             this->velocity[1] = this->velocity[1]-this->gravity[1]; //
         }
         //passage en mode "chute"
@@ -119,6 +158,7 @@ void Mario::Jump()
                 isFalling = true;
             }
             setPos(x(),y()+this->velocity[1]);
+            this->posY += this->velocity[1];
             this->velocity[1] = this->velocity[1]+this->gravity[1];
         }
         else if(this->velocity[1] == MAXHEIGHT+1 && isFalling) {
@@ -131,24 +171,24 @@ void Mario::Jump()
 
 void Mario::spriteUpdater() {
     if(isJumping){
-        this->setPixmap(QPixmap("..\\images\\mario\\mario_jump.png"));
+        this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_jump.png"));
     }
     else if(!isIdle){
         if(running >= 0 && running < 3){
-            this->setPixmap(QPixmap("..\\images\\mario\\mario_course1.png"));
+            this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_course1.png"));
             running++;
         }
         else if(running >= 3 && running < 6){
-            this->setPixmap(QPixmap("..\\images\\mario\\mario_course2.png"));
+            this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_course2.png"));
             running++;
         }
         else if(running >= 6 && running < 9){
-            this->setPixmap(QPixmap("..\\images\\mario\\mario_course3.png"));
+            this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_course3.png"));
             running = 1;
         }
     }
     else {
-        this->setPixmap(QPixmap("..\\images\\mario\\mario_stop.png"));
+        this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_stop.png"));
     }
 }
 

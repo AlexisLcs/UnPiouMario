@@ -33,6 +33,7 @@ public:
     explicit Map(QScrollBar* s, QJsonObject listAll, QObject *parent = 0);
     QList<QGraphicsItem*> * getGraphicsItem(QString name);
     void timerEvent(QTimerEvent *);
+    void collisionMarioTraps();
     void collisionMario();
     static int const Hauteur = 800;
     static int const Longueur = 1200;
