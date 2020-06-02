@@ -64,12 +64,12 @@ void Mario::setIsFalling(bool value)
 {
     isFalling = value;
 }
-QMap<QString, bool>* Mario::getInputMap()
+QMap<int, bool> Mario::getInputMap() const
 {
     return inputMap;
 }
 
-void Mario::setInputMap(QMap<QString, bool>* &value)
+void Mario::setInputMap(const QMap<int, bool> &value)
 {
     inputMap = value;
 }
@@ -84,7 +84,6 @@ void Mario::moveLeft()
         Jump();
 
     setPos(x() - this->velocity[0],y());
-    this->posX -= this->velocity[0];
 }
 
 void Mario::moveRight()
@@ -93,7 +92,6 @@ void Mario::moveRight()
         Jump();
 
     setPos(x() + this->velocity[0],y());
-    this->posY += this->velocity[0];
 }
 
 //ATTENTION : quand on appelle cette méthode on suppose que isJumping == true
@@ -154,28 +152,22 @@ void Mario::spriteUpdater() {
     }
 }
 
-void Mario::moveMario()
+void Mario::timerOutEvent()
 {
-
-    if(inputMap->take("Qt::Key_Right"))
+    if(inputMap[Qt::Key_Right])
     {
-        qDebug() << "do right biatch";
         moveRight();
     }
 
-    if(inputMap->take("Qt::Key_Left"))
+    if(inputMap[Qt::Key_Left])
     {
-        qDebug() << "do left biatch";
         moveLeft();
     }
 
-    if(inputMap->take("Qt::Key_Up"))
+    if(inputMap[Qt::Key_Up])
     {
-        qDebug() << "do jump biatch";
         Jump();
     }
-
-    //qDebug() << "move it move it";
 }
 
 
