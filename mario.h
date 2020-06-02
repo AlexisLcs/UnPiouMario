@@ -22,6 +22,7 @@ private:
     QPixmap mPixmap;
     bool isJumping = 0;
     bool isFalling = 0;
+    bool isOnGround = true;
     bool goRight = true;
     bool goLeft = true;
     bool isLooking; //true vers la droite; false vers la gauche
@@ -52,6 +53,8 @@ public:
     void setGoLeft(bool value);
     bool getIsLooking();
     void setIsLooking(bool value);
+    bool getIsOnGround();
+    void setIsOnGround(bool value);
     QMap<int, bool> getInputMap() const;
     void setInputMap(const QMap<int, bool> &value);
 

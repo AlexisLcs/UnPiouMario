@@ -88,6 +88,15 @@ void Mario::setIsLooking(bool value)
 {
     isLooking = value;
 }
+
+bool Mario::getIsOnGround()
+{
+    return isOnGround;
+}
+void Mario::setIsOnGround(bool value)
+{
+    isOnGround = value;
+}
 QMap<int, bool> Mario::getInputMap() const
 {
     return inputMap;
