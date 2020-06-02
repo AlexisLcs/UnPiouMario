@@ -38,7 +38,7 @@ QJsonObject readJson()
 {
     QString val;
     QFile file;
-    file.setFileName("D:\\Félix\\Documents\\Polytech 4A\\S8\\QT\\Projet_UnfairMario\\UnPiouMario\\map.json");
+    file.setFileName("..\\UnPiouMario\\map.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
