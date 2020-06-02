@@ -1,6 +1,6 @@
 #ifndef MARIO_H
 #define MARIO_H
-#define MAXHEIGHT 20
+#define MAXHEIGHT 23
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
