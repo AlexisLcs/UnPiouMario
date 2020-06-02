@@ -208,7 +208,6 @@ void Map::initPlayField(){
 void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left){
-
         this->myMario->getMario()->moveLeft();
         this->myMario->getMario()->getInputMap()[Qt::Key_Left] = true;
 
@@ -273,29 +272,22 @@ void Map::collisionMario(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
         if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
-            //Tape bord droit du Pipe
-            qDebug() << "this->myMario->getMario()->getPosX()" << this->myMario->getMario()->getPosX();
-            qDebug() << "this->myMario->getMario()->getPosX() + 50" << this->myMario->getMario()->getPosX() + 50;
-            qDebug() << "this->myMario->getMario()->getPosY()" << this->myMario->getMario()->getPosY();
-            qDebug() << "this->myMario->getMario()->getPosY() + 55" << this->myMario->getMario()->getPosY() + 55;
-            qDebug() << "pipe->getPosX()" << pipe->getPosX();
-            qDebug() << "pipe->getPosX() + 50" << pipe->getPosX() + 75;
-            qDebug() << "pipe->getPosY()" << pipe->getPosY();
-            qDebug() << "pipe->getPosY() + 55" << pipe->getPosY() + 55;
-            if((this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX()) && (this->myMario->getMario()->getPosX() <= pipe->getPosX() + 75) && !(this->myMario->getMario()->getIsFalling())){
+            if(this->myMario->getMario()->getPosX() >= pipe->getPosX() && this->myMario->getMario()->getPosX() + 50 <= pipe->getPosX() + 75)
+            {
+                this->myMario->getMario()->setIsFalling(false);
+                this->myMario->getMario()->setIsJumping(false);
+                this->myMario->getMario()->setGoRight(true);
+                this->myMario->getMario()->setGoLeft(true);
+                this->myMario->getMario()->resetJump();
+            }
+            //Tape bord droit ou gauche du Pipe
+            else if((this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX() || this->myMario->getMario()->getPosX() <= pipe->getPosX() + 75) && this->myMario->getMario()->getPosY() + 54 > pipe->getPosY()){
                 if(this->myMario->getMario()->getIsLooking()){
                     this->myMario->getMario()->setGoRight(false);
                 }
                 else {
                     this->myMario->getMario()->setGoLeft(false);
                 }
-            }
-            else if((this->myMario->getMario()->getPosX() >= pipe->getPosX()) && (this->myMario->getMario()->getPosX() +50 <= pipe->getPosX() + 75) && (this->myMario->getMario()->getPosY() + 55 >= pipe->getPosY())){
-                this->myMario->getMario()->setIsFalling(false);
-                this->myMario->getMario()->setIsJumping(false);
-                this->myMario->getMario()->setGoRight(true);
-                this->myMario->getMario()->setGoLeft(true);
-                this->myMario->getMario()->resetJump();
             }
         }
 
