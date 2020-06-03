@@ -275,18 +275,12 @@ void Map::keyReleaseEvent(QKeyEvent *event)
 
 void Map::Refresh()
 {
-    //qDebug() << "refresh";
 
     //collision
     collisionMario();
     collisionMarioTraps();
-    //input
-    //gestion dans la méthode keyPressEvent
-
-    //maj coord mario
-
+    //déplacement
     this->myMario->getMario()->moveMario();
-    //scroll
 }
 
 void Map::collisionMarioTraps(){
