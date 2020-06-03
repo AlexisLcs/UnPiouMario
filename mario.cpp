@@ -112,6 +112,8 @@ void Mario::setInputMap(QMap<QString, bool>* &value)
 /*Other methods*/
 void Mario::resetJump(){
     velocity[1] = MAXHEIGHT;
+    inputMap->remove("Qt::Key_Up");
+    inputMap->insert("Qt::Key_Up", false);
 }
 
 void Mario::moveLeft()
@@ -152,7 +154,7 @@ void Mario::Jump()
         {
             setPos(x(),y()-this->velocity[1]); //changement coord
             this->posY -= this->velocity[1];
-            this->velocity[1] = this->velocity[1]-this->gravity[1]; //
+            this->velocity[1] = this->velocity[1]-this->gravity[1];
         }
         //passage en mode "chute"
         else if(this->velocity[1] <= MAXHEIGHT){
@@ -170,6 +172,19 @@ void Mario::Jump()
             inputMap->remove("Qt::Key_Up");
             inputMap->insert("Qt::Key_Up", false);
         }
+    }
+}
+
+void Mario::Fall()
+{
+    if(!getIsOnGround()) {
+        setPos(x(),y()+this->velocity[1]);
+        this->posY += this->velocity[1];
+        this->velocity[1] = this->velocity[1]+this->gravity[1];
+    }
+    else {
+        setIsFalling(false);
+        resetJump();
     }
 }
 
@@ -212,6 +227,10 @@ void Mario::moveMario()
     if(inputMap->value("Qt::Key_Up"))
     {
         Jump();
+    }
+    else if(getIsFalling())
+    {
+        Fall();
     }
 }
 

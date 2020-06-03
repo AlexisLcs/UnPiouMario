@@ -62,6 +62,7 @@ public:
     void moveRight();
     void moveLeft();
     void Jump();
+    void Fall();
     void spriteUpdater();
     int getPosX();
     int getPosY();
