@@ -59,3 +59,9 @@ int BullTrap::getPosY() {
 QString BullTrap::getName() {
     return this->name;
 }
+
+
+void BullTrap::moveBull(){
+
+}
+

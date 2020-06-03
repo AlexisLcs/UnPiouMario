@@ -2,77 +2,77 @@
 	"sol": {
 		"1" : {
 		  "posX":"0",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"10",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"2" : {
 		  "posX":"960",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"10",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"3" : {
 		  "posX":"1735",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"4",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"4" : {
 		  "posX":"2183",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"2",
 		  "visible":"1",
 		  "image": "sol.png"
 		},
 		"5" : {
 		  "posX":"2483",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"2",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"6" : {
 		  "posX":"2803",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"7",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"7" : {
 		  "posX":"3443",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"8",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"11" : {
 		  "posX":"4147",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"9",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"8" : {
 		  "posX":"4979",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"7",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"9" : {
 		  "posX":"5619",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"6",
 		  "visible":"0",
 		  "image": "sol.png"
 		},
 		"10" : {
 		  "posX":"6259",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"28",
 		  "visible":"0",
 		  "image": "sol.png"
@@ -295,31 +295,31 @@
 	"soltrap": {
 		"1" : {
 		  "posX":"640",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"5",
 		  "image": "sol.png"
 		},
 		"2" : {
 		  "posX":"2611",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"3",
 		  "image": "sol.png"
 		},
 		"3" : {
 		  "posX":"4723",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"4",
 		  "image": "sol.png"
 		},
 		"4" : {
 		  "posX":"5427",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"3",
 		  "image": "sol.png"
 		},
 		"5" : {
 		  "posX":"3955",
-		  "posY":"726",
+		  "posY":"725",
 		  "length":"3",
 		  "image": "sol.png"
 		}

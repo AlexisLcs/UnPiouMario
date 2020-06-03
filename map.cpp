@@ -281,6 +281,8 @@ void Map::Refresh()
     collisionMarioTraps();
     //déplacement
     this->myMario->getMario()->moveMario();
+    //deplacement bulltrap FELIX
+
 }
 
 void Map::collisionMarioTraps(){
@@ -318,6 +320,7 @@ void Map::collisionMario(){ //Brick
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     if(items.size() > 0) {
         foreach(QGraphicsItem *item, items){
+            qDebug() << item;
             if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
                 if(this->myMario->getMario()->getPosX() >= pipe->getPosX() && this->myMario->getMario()->getPosX() + 50 <= pipe->getPosX() + 75)
                 {
@@ -394,15 +397,18 @@ void Map::collisionMario(){ //Brick
             }
 
             else if(Sol * sol = qgraphicsitem_cast<Sol *>(item)){
-                this->myMario->getMario()->setIsFalling(false);
-                this->myMario->getMario()->setIsJumping(false);
-                this->myMario->getMario()->resetJump();
-                this->myMario->getMario()->setIsOnGround(true);
+                if(this->myMario->getMario()->getIsJumping() || this->myMario->getMario()->getIsFalling()){
+                    this->myMario->getMario()->setIsFalling(false);
+                    this->myMario->getMario()->setIsJumping(false);
+                    this->myMario->getMario()->setIsOnGround(true);
+                    this->myMario->getMario()->resetJump();
+                }
             }
 
         }
     }
     else {
+        this->myMario->getMario()->setIsOnGround(false);
         this->myMario->getMario()->setGoRight(true);
         this->myMario->getMario()->setGoLeft(true);
     }

@@ -233,7 +233,7 @@ void Mario::moveMario()
     {
         Jump();
     }
-    else if(getIsFalling())
+    else //if(getIsFalling())
     {
         Fall();
     }

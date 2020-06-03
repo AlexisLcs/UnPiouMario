@@ -14,6 +14,7 @@ public:
     int type() const;
     int getPosX();
     int getPosY();
+    void moveBull();
     QString getName();
 
 public slots:
