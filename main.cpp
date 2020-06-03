@@ -77,9 +77,8 @@ int main(int argc, char *argv[])
     view.setBackgroundBrush(QColor(111, 135, 249));
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
-
+  
     view.show();
     center(view);
-    //qDebug() << "App path : " << qApp->applicationDirPath();
     return a.exec();
 }

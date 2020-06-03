@@ -54,13 +54,7 @@ public:
     void spriteUpdater();
     int getPosX();
     int getPosY();
-
-//public slots:
     void moveMario();
-
-
-
-
 };
 
 #endif // MARIO_H

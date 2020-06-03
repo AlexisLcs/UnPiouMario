@@ -40,7 +40,6 @@ public:
     void keyPressEvent(QKeyEvent * event);
     void keyReleaseEvent(QKeyEvent * event);
     void playSound(QString sound);
-
     Entity *getMyMario() const;
     void setMyMario(Entity *value);
 

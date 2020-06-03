@@ -24,10 +24,6 @@ public:
     void setMario(Mario *value);
     QTimer *getInputTimer() const;
     void setInputTimer(QTimer *value);
-/*
-public slots:
-    void marioInput();
-ù*/
 };
 
 #endif // ENTITY_H

@@ -3,15 +3,12 @@
 
 static bool DEV_ON = false;
 
-
-
 Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,790, parent)
 {
     this->scroll = s;
     this->listAll = listAll;
     initPlayField();
     m_timer = new QTimer(this);
-    //m_timer->setInterval(20);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
 
     this->soundManager = new SoundManager();
@@ -21,7 +18,6 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
 
 Map::~Map()
 {
-
 }
 
 QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
@@ -208,10 +204,12 @@ void Map::initPlayField(){
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\mario_stop.png");
     this->myMario->getMario()->setPixmap(pixMario);
     this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(), this->myMario->getMario()->getPosY());
+  
     QMap<QString, bool> *inputMap = new QMap<QString, bool>();
     inputMap->insert("Qt::Key_Left", false);
     inputMap->insert("Qt::Key_Right", false);
     inputMap->insert("Qt::Key_Up", false);
+  
     this->myMario->getMario()->setInputMap(inputMap);
     addItem(this->myMario->getMario());
     this->myMario->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -219,7 +217,6 @@ void Map::initPlayField(){
 
     qDebug() << "init ok";
 }
-
 
 //getter & setters pour le mario
 Entity *Map::getMyMario() const
