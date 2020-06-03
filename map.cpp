@@ -8,6 +8,7 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
     this->scroll->setValue(0);
     this->scroll->update();
     this->listAll = listAll;
+    //movingItems = new QList<QGraphicsItem*>();
     initPlayField();
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
@@ -207,6 +208,7 @@ void Map::initPlayField(){
     Q_FOREACH(BullTrap * bullTrap, *listBullTrap){
         bullTrap->setPos(bullTrap->getPosX(), bullTrap->getPosY());
         addItem(bullTrap);
+        movingItems.append(bullTrap); //ajout du bulltrap dans les movingitems
         qDebug() << bullTrap;
     }
 
@@ -228,6 +230,23 @@ void Map::initPlayField(){
     Q_FOREACH(Castle * castle, *listeCastleRight){
         castle->setPos(castle->getPosX(), castle->getPosY());
         addItem(castle);
+    }
+}
+
+QList<QGraphicsItem *> Map::getMovingItems()
+{
+    return movingItems;
+}
+void Map::setMovingItems(QList<QGraphicsItem *> value)
+{
+    movingItems = value;
+}
+void Map::moveItems()
+{
+    foreach(QGraphicsItem* item, movingItems)
+    {
+        if(BullTrap * bulltrap = qgraphicsitem_cast<BullTrap *>(item))
+            bulltrap->moveBullTrap();
     }
 }
 
@@ -281,6 +300,8 @@ void Map::Refresh()
     collisionMarioTraps();
     //déplacement
     this->myMario->getMario()->moveMario();
+    //déplacement des moving items
+    moveItems();
 }
 
 void Map::collisionMarioTraps(){

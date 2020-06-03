@@ -4,17 +4,20 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QDebug>
+#include "objectype.h"
 
 class BullTrap : public QGraphicsItem
 {
 public:
+    enum { Type = UserType + bullTrapType };
     BullTrap( int length, QString fileL, QString fileR, int posX, int posY, int mDirection, QGraphicsItem *parent = 0);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    int type() const;
+    int type() const {return Type;}
     int getPosX();
     int getPosY();
     QString getName();
+    void moveBullTrap();
 
 public slots:
     void nextFrame();
@@ -29,6 +32,7 @@ private:
     QString fileL;
     QString fileR;
     QString name;
+    int velocity;
 };
 
 #endif // BULLTRAP_H

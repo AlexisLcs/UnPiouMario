@@ -43,6 +43,10 @@ public:
     void playSound(QString sound);
     Entity *getMyMario() const;
     void setMyMario(Entity *value);
+    QList<QGraphicsItem *> getMovingItems();
+    void setMovingItems(QList<QGraphicsItem *> value);
+
+    void moveItems();
 
 public slots:
     void Refresh();
@@ -54,6 +58,7 @@ private:
     QJsonObject listAll;
     QTimer * m_timer;
     Entity * myMario;
+    QList<QGraphicsItem*> movingItems; //item (autre que mario) qui devront bouger
     QScrollBar * scroll;
     SoundManager * soundManager;
 
