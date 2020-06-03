@@ -46,13 +46,15 @@ public:
 
 public slots:
     void Refresh();
+    void initScroll();
+    void setValueScroll(int value);
 
 private:
     void initPlayField();
     QJsonObject listAll;
-    QScrollBar * scroll;
     QTimer * m_timer;
     Entity * myMario;
+    QScrollBar * scroll;
     SoundManager * soundManager;
 
 

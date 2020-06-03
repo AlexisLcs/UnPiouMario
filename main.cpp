@@ -76,9 +76,13 @@ int main(int argc, char *argv[])
     view.setScene(scenemap);
     view.setBackgroundBrush(QColor(111, 135, 249));
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setWindowTitle("UnPiouMario !");
-  
+
     view.show();
+    scenemap->initScroll();
+
     center(view);
+
     return a.exec();
 }

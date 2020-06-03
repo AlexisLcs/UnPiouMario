@@ -121,7 +121,6 @@ void Mario::moveLeft()
     isLooking = false;
     if(goLeft){
         goRight = true;
-
         setPos(x() - this->velocity[0],y());
         this->posX -= this->velocity[0];
     }
@@ -132,7 +131,6 @@ void Mario::moveRight()
     isLooking = true;
     if(goRight){
         goLeft = true;
-
         setPos(x() + this->velocity[0],y());
         this->posX += this->velocity[0];
     }
