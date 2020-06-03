@@ -98,8 +98,8 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
     }
 
     if(name == "mario"){
-        Mario * item = new Mario(listeObject["image"].toString(), listeObject["posX"].toString().toInt(), listeObject["posY"].toString().toInt());
-        this->myMario = new Entity(item);
+        Mario * item = new Mario(this->scroll, listeObject["image"].toString(), listeObject["posX"].toString().toInt(), listeObject["posY"].toString().toInt());
+        this->myMario = new Entity( item);
         listeRetour->append(item);
     }
 
@@ -279,23 +279,13 @@ void Map::Refresh()
 
     //collision
     collisionMario();
-
+    collisionMarioTraps();
     //input
     //gestion dans la méthode keyPressEvent
 
     //maj coord mario
 
-    if(this->myMario->getMario()->getPosX() >= 600){
-        if(this->myMario->getMario()->getIsLooking()){
-            this->setValueScroll(this->scroll->value() + 10);
-        }
-        else{
-            this->setValueScroll(this->scroll->value() - 10);
-        }
-    }
-    else{
-        this->myMario->getMario()->moveMario();
-    }
+    this->myMario->getMario()->moveMario();
     //scroll
 }
 
@@ -311,6 +301,10 @@ void Map::collisionMarioTraps(){
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
             qDebug() << solTrap;
             solTrap->setVisible(false);
+            if(this->myMario->getMario()->getPosX() + 25 >= solTrap->getPosX()){
+                this->myMario->getMario()->setIsOnGround(false);
+                this->myMario->getMario()->setIsFalling(true);
+            }
         }
         else if(BrickTrap * brickTrap = qgraphicsitem_cast<BrickTrap *>(item)){
             if(brickTrap->getActivation() == "all"){

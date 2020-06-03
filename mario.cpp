@@ -2,7 +2,7 @@
 
 /*Constructor*/
 
-Mario::Mario(QString file, int posX, int posY)
+Mario::Mario(QScrollBar* s, QString file, int posX, int posY)
 {
     setFlag(ItemClipsToShape);
     mPixmap = QPixmap("..\\UnPiouMario\\images\\mario\\" + file);
@@ -11,6 +11,7 @@ Mario::Mario(QString file, int posX, int posY)
     velocity[0] = 10;
     velocity[1] = MAXHEIGHT;
     gravity[1] = 1;
+    this->scroll = s;
 }
 
 
@@ -120,6 +121,9 @@ void Mario::moveLeft()
 {
     isLooking = false;
     if(goLeft){
+        if(this->getPosX() >= 600){
+            this->setValueScroll(this->scroll->value() - 10);
+        }
         goRight = true;
         setPos(x() - this->velocity[0],y());
         this->posX -= this->velocity[0];
@@ -130,6 +134,9 @@ void Mario::moveRight()
 {
     isLooking = true;
     if(goRight){
+        if(this->getPosX() >= 600){
+            this->setValueScroll(this->scroll->value() + 10);
+        }
         goLeft = true;
         setPos(x() + this->velocity[0],y());
         this->posX += this->velocity[0];
@@ -219,6 +226,9 @@ void Mario::moveMario()
 
     if(inputMap->value("Qt::Key_Left"))
     {
+        if(this->getPosX() >= 600){
+            this->setValueScroll(this->scroll->value() + 10);
+        }
         moveLeft();
     }
 
@@ -230,6 +240,12 @@ void Mario::moveMario()
     {
         Fall();
     }
+}
+
+
+
+void Mario::setValueScroll(int value){
+    this->scroll->setValue(value);
 }
 
 

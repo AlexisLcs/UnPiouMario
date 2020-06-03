@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
+#include <QScrollBar>
 
 class Mario: public QGraphicsPixmapItem {
 
@@ -28,12 +29,13 @@ private:
     bool isLooking; //true vers la droite; false vers la gauche
     int running = 0;
     bool isIdle = 0;
+    QScrollBar * scroll;
 
     QMap<QString, bool>* inputMap;
 
 public:
     //constructeur
-    Mario(QString file, int posX, int posY);
+    Mario(QScrollBar* s, QString file, int posX, int posY);
 
     //getters & setters
     QVector<int> getPosition() const;
@@ -56,6 +58,7 @@ public:
     void setIsOnGround(bool value);
     QMap<QString, bool>* getInputMap();
     void setInputMap(QMap<QString, bool>* &value);
+    void setValueScroll(int value);
 
     //autres methodes
     void resetJump();
