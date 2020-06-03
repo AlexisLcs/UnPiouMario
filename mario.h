@@ -26,11 +26,10 @@ private:
     bool goRight = true;
     bool goLeft = true;
     bool isLooking; //true vers la droite; false vers la gauche
-
     int running = 0;
     bool isIdle = 0;
 
-    QMap<int, bool> inputMap;
+    QMap<QString, bool>* inputMap;
 
 public:
     //constructeur
@@ -55,8 +54,8 @@ public:
     void setIsLooking(bool value);
     bool getIsOnGround();
     void setIsOnGround(bool value);
-    QMap<int, bool> getInputMap() const;
-    void setInputMap(const QMap<int, bool> &value);
+    QMap<QString, bool>* getInputMap();
+    void setInputMap(QMap<QString, bool>* &value);
 
     //autres methodes
     void resetJump();
@@ -66,13 +65,7 @@ public:
     void spriteUpdater();
     int getPosX();
     int getPosY();
-
-//public slots:
-    void timerOutEvent();
-
-
-
-
+    void moveMario();
 };
 
 #endif // MARIO_H

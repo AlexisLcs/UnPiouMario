@@ -9,8 +9,15 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
     this->listAll = listAll;
     initPlayField();
     m_timer = new QTimer(this);
-    m_timer->setInterval(20);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
+
     this->soundManager = new SoundManager();
+
+    m_timer->start(17);
+}
+
+Map::~Map()
+{
 }
 
 QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
@@ -197,6 +204,13 @@ void Map::initPlayField(){
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\mario_stop.png");
     this->myMario->getMario()->setPixmap(pixMario);
     this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(), this->myMario->getMario()->getPosY());
+  
+    QMap<QString, bool> *inputMap = new QMap<QString, bool>();
+    inputMap->insert("Qt::Key_Left", false);
+    inputMap->insert("Qt::Key_Right", false);
+    inputMap->insert("Qt::Key_Up", false);
+  
+    this->myMario->getMario()->setInputMap(inputMap);
     addItem(this->myMario->getMario());
     this->myMario->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
     this->myMario->getMario()->setFocus();
@@ -204,45 +218,65 @@ void Map::initPlayField(){
     qDebug() << "init ok";
 }
 
+//getter & setters pour le mario
+Entity *Map::getMyMario() const
+{
+    return myMario;
+}
+
+void Map::setMyMario(Entity *value)
+{
+    myMario = value;
+}
+
 
 void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left){
-        this->myMario->getMario()->moveLeft();
-        this->myMario->getMario()->getInputMap()[Qt::Key_Left] = true;
-
-        collisionMario();
-
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", true);
     }
 
     if(event->key() == Qt::Key_Right){
-        this->myMario->getMario()->moveRight();
-        this->myMario->getMario()->getInputMap()[Qt::Key_Right] = true;
-
-        collisionMario();
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", true);
     }
 
     if(event->key() == Qt::Key_Up){
-        this->myMario->getMario()->Jump();
-        this->myMario->getMario()->getInputMap()[Qt::Key_Up] = true;
-
-        collisionMario();
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", true);
     }
 }
 
 void Map::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Left)
-        this->myMario->getMario()->getInputMap()[Qt::Key_Left] = false;
+    if(event->key() == Qt::Key_Left){
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
+    }
 
-    if(event->key() == Qt::Key_Right)
-        this->myMario->getMario()->getInputMap()[Qt::Key_Right] = false;
-
-    if(event->key() == Qt::Key_Up)
-        this->myMario->getMario()->getInputMap()[Qt::Key_Up] = false;
+    if(event->key() == Qt::Key_Right){
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
+    }
 
 }
 
+void Map::Refresh()
+{
+    //qDebug() << "refresh";
+
+    //collision
+    collisionMario();
+
+    //input
+    //gestion dans la méthode keyPressEvent
+
+    //maj coord mario
+    this->myMario->getMario()->moveMario();
+
+    //scroll
+}
 
 void Map::collisionMarioTraps(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
@@ -372,8 +406,4 @@ void Map::playSound(QString sound){
     if(sound == "spikes"){
         this->soundManager->spikes.play();
     }
-}
-
-void Map::timerEvent(QTimerEvent *){
-
 }
