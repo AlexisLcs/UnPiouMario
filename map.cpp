@@ -284,13 +284,18 @@ void Map::Refresh()
     //gestion dans la méthode keyPressEvent
 
     //maj coord mario
-    if(this->myMario->getMario()->getPosX() >= 645){
 
+    if(this->myMario->getMario()->getPosX() >= 600){
+        if(this->myMario->getMario()->getIsLooking()){
+            this->setValueScroll(this->scroll->value() + 10);
+        }
+        else{
+            this->setValueScroll(this->scroll->value() - 10);
+        }
     }
     else{
         this->myMario->getMario()->moveMario();
     }
-
     //scroll
 }
 
