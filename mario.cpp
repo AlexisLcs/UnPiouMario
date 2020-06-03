@@ -120,8 +120,8 @@ void Mario::resetJump(){
 void Mario::moveLeft()
 {
     isLooking = false;
-    if(goLeft){
-        if(this->getPosX() >= 600){
+    if(goLeft && this->getPosX() >= 0){
+        if(this->getPosX() <= 7400){
             this->setValueScroll(this->scroll->value() - 10);
         }
         goRight = true;
@@ -133,7 +133,7 @@ void Mario::moveLeft()
 void Mario::moveRight()
 {
     isLooking = true;
-    if(goRight){
+    if(goRight && this->getPosX() <= 7880){
         if(this->getPosX() >= 600){
             this->setValueScroll(this->scroll->value() + 10);
         }
@@ -226,9 +226,6 @@ void Mario::moveMario()
 
     if(inputMap->value("Qt::Key_Left"))
     {
-        if(this->getPosX() >= 600){
-            this->setValueScroll(this->scroll->value() + 10);
-        }
         moveLeft();
     }
 
