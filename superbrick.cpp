@@ -32,10 +32,6 @@ void SuperBrick::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     setTransformOriginPoint(boundingRect().center());
 }
 
-int SuperBrick::type() const {
-    return Type;
-}
-
 int SuperBrick::getPosX() {
     return this->posX;
 }

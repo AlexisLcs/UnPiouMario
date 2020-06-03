@@ -7,5 +7,7 @@ const int solTrapType = 2;
 const int brickTrapType = 3;
 const int solType = 4;
 const int solPipe = 5;
+const int brickType = 6;
+const int superBrickType = 7;
 
 #endif // OBJECTTYPE_H

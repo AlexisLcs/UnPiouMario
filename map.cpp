@@ -268,18 +268,10 @@ void Map::collisionMarioTraps(){
     }
 }
 
-void Map::collisionMario(){
+void Map::collisionMario(){ //Brick
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
         if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
-            qDebug() << "this->myMario->getMario()->getPosX() : " << this->myMario->getMario()->getPosX();
-            qDebug() << "this->myMario->getMario()->getPosX() + 50 : " << this->myMario->getMario()->getPosX() + 50;
-            qDebug() << "this->myMario->getMario()->getPosY() : " << this->myMario->getMario()->getPosY();
-            qDebug() << "this->myMario->getMario()->getPosY() + 55 : " << this->myMario->getMario()->getPosY() + 55;
-            qDebug() << "pipe->getPosX() : " << pipe->getPosX();
-            qDebug() << "pipe->getPosX() + 75 : " << pipe->getPosX() + 75;
-            qDebug() << "pipe->getPosY() : " << pipe->getPosY();
-            qDebug() << "pipe->getPosY() + 55: " << pipe->getPosY() + 55;
             if(this->myMario->getMario()->getPosX() >= pipe->getPosX() && this->myMario->getMario()->getPosX() + 50 <= pipe->getPosX() + 75)
             {
                 this->myMario->getMario()->setIsFalling(false);
@@ -304,6 +296,56 @@ void Map::collisionMario(){
             }
         }
 
+        if(Brick * block = qgraphicsitem_cast<Brick *>(item)){
+            if(this->myMario->getMario()->getPosX() >= block->getPosX() && this->myMario->getMario()->getPosX() + 50 <= block->getPosX() + 50)
+            {
+                this->myMario->getMario()->setIsFalling(false);
+                this->myMario->getMario()->setIsJumping(false);
+                this->myMario->getMario()->setGoRight(true);
+                this->myMario->getMario()->setGoLeft(true);
+                this->myMario->getMario()->resetJump();
+                this->myMario->getMario()->setIsOnGround(false);
+            }
+            //Tape bord droit ou gauche du Pipe
+            else if((this->myMario->getMario()->getPosX() + 50 >= block->getPosX() || this->myMario->getMario()->getPosX() <= block->getPosX() + 50) && this->myMario->getMario()->getIsOnGround()){
+                if(this->myMario->getMario()->getIsLooking()){
+                    this->myMario->getMario()->setGoRight(false);
+                }
+                else {
+                    this->myMario->getMario()->setGoLeft(false);
+                }
+            }
+            // Il est plus sur le pipe et doit tomber
+            else{
+
+            }
+        }
+
+        if(SuperBrick * superBlock = qgraphicsitem_cast<SuperBrick *>(item)){
+            if(this->myMario->getMario()->getPosX() >= superBlock->getPosX() && this->myMario->getMario()->getPosX() + 50 <= superBlock->getPosX() + 50)
+            {
+                this->myMario->getMario()->setIsFalling(false);
+                this->myMario->getMario()->setIsJumping(false);
+                this->myMario->getMario()->setGoRight(true);
+                this->myMario->getMario()->setGoLeft(true);
+                this->myMario->getMario()->resetJump();
+                this->myMario->getMario()->setIsOnGround(false);
+            }
+            //Tape bord droit ou gauche du Pipe
+            else if((this->myMario->getMario()->getPosX() + 50 >= superBlock->getPosX() || this->myMario->getMario()->getPosX() <= superBlock->getPosX() + 50) && this->myMario->getMario()->getIsOnGround()){
+                if(this->myMario->getMario()->getIsLooking()){
+                    this->myMario->getMario()->setGoRight(false);
+                }
+                else {
+                    this->myMario->getMario()->setGoLeft(false);
+                }
+            }
+            // Il est plus sur le pipe et doit tomber
+            else{
+
+            }
+        }
+
         if(Sol * sol = qgraphicsitem_cast<Sol *>(item)){
             this->myMario->getMario()->setIsFalling(false);
             this->myMario->getMario()->setIsJumping(false);
@@ -315,6 +357,9 @@ void Map::collisionMario(){
             this->myMario->getMario()->setIsJumping(false);
         }
         else if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
+
+        }
+        else if(Brick * block = qgraphicsitem_cast<Brick *>(item)){
 
         }
         else {
