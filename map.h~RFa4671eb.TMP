@@ -29,22 +29,16 @@
 
 class Map : public QGraphicsScene
 {
-    Q_OBJECT
 public:
     explicit Map(QScrollBar* s, QJsonObject listAll, QObject *parent = 0);
-    ~Map();
     QList<QGraphicsItem*> * getGraphicsItem(QString name);
+    void timerEvent(QTimerEvent *);
     void collisionMario();
     static int const Hauteur = 800;
     static int const Longueur = 1200;
     void keyPressEvent(QKeyEvent * event);
     void keyReleaseEvent(QKeyEvent * event);
     void playSound(QString sound);
-    Entity *getMyMario() const;
-    void setMyMario(Entity *value);
-
-public slots:
-    void Refresh();
 
 private:
     void initPlayField();

@@ -58,27 +58,27 @@ QJsonObject getBricks(QJsonObject all)
 
 int main(int argc, char *argv[])
 {
+    //creation de la vue
     QApplication a(argc, argv);
     QGraphicsScene * scene = new QGraphicsScene;
     QGraphicsView view(scene);
     view.setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
 
+    //lecture du json
     QJsonObject listeAll = readJson();
 
     QScrollBar * scroll = new QScrollBar();
     scroll = view.horizontalScrollBar();
 
+    //creation de la map
     Map * scenemap = new Map(scroll, listeAll, scene);
 
     view.setScene(scenemap);
-
     view.setBackgroundBrush(QColor(111, 135, 249));
-
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
     view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
+  
     view.show();
     center(view);
-    //qDebug() << "App path : " << qApp->applicationDirPath();
     return a.exec();
 }
