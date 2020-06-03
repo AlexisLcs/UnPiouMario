@@ -5,14 +5,16 @@
 #include <QPainter>
 #include <QDebug>
 #include <QTimer>
+#include "objectype.h"
 
 class SuperBrick : public QGraphicsItem
 {
 public:
+    enum { Type = UserType + superBrickType };
     SuperBrick( int length, QString file, int posX, int posY,QGraphicsItem *parent = 0);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    int type() const;
+    int type() const {return Type;}
     int getPosX();
     int getPosY();
     QString getName();

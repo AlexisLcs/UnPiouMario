@@ -27,7 +27,7 @@ void BrickTrap::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 void BrickTrap::setPixMap(QString file) {
-    this->mPixmap = QPixmap("..\\test\\images\\objects\\" + file);
+    this->mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\" + file);
 }
 
 int BrickTrap::getPosX() {

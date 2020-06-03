@@ -34,6 +34,7 @@ public:
     explicit Map(QScrollBar* s, QJsonObject listAll, QObject *parent = 0);
     ~Map();
     QList<QGraphicsItem*> * getGraphicsItem(QString name);
+    void collisionMarioTraps();
     void collisionMario();
     static int const Hauteur = 800;
     static int const Longueur = 1200;
@@ -45,13 +46,15 @@ public:
 
 public slots:
     void Refresh();
+    void initScroll();
+    void setValueScroll(int value);
 
 private:
     void initPlayField();
     QJsonObject listAll;
-    QScrollBar * scroll;
     QTimer * m_timer;
     Entity * myMario;
+    QScrollBar * scroll;
     SoundManager * soundManager;
 
 
