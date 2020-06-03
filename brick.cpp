@@ -25,10 +25,6 @@ void Brick::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     setTransformOriginPoint(boundingRect().center());
 }
 
-int Brick::type() const {
-    return Type;
-}
-
 int Brick::getPosX() {
     return this->posX;
 }

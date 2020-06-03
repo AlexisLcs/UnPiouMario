@@ -44,10 +44,6 @@ void Pipe::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     setTransformOriginPoint(boundingRect().center());
 }
 
-int Pipe::type() const {
-    return Type;
-}
-
 int Pipe::getPosX() {
     return this->posX;
 }

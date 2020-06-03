@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     view.setScene(scenemap);
     view.setBackgroundBrush(QColor(111, 135, 249));
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view.setWindowTitle("Maiiiiiiiiiiiiiiiiiiiis QUOIIIIIIIIIIIIIIIIIIIIIII !");
+    view.setWindowTitle("UnPiouMario !");
   
     view.show();
     center(view);
