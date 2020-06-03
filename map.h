@@ -38,7 +38,7 @@ public:
     static int const Hauteur = 800;
     static int const Longueur = 1200;
     void keyPressEvent(QKeyEvent * event);
-    //void keyReleaseEvent(QKeyEvent * event);
+    void keyReleaseEvent(QKeyEvent * event);
     void playSound(QString sound);
 
     Entity *getMyMario() const;

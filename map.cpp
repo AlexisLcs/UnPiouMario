@@ -236,39 +236,34 @@ void Map::setMyMario(Entity *value)
 void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left){
-        //this->myMario->getMario()->moveLeft();
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", true);
-        qDebug() << "key appui left";
     }
 
     if(event->key() == Qt::Key_Right){
-        //this->myMario->getMario()->moveRight();
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", true);
-        qDebug() << "key appui right";
     }
 
     if(event->key() == Qt::Key_Up){
-        //this->myMario->getMario()->Jump();
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", true);
-        qDebug() << "key appui up";
     }
 }
-/*
+
 void Map::keyReleaseEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Left){
-        this->myMario->getMario()->getInputMap()[Qt::Key_Left] = false;
-        qDebug() << "release left";
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
     }
 
     if(event->key() == Qt::Key_Right){
-        this->myMario->getMario()->getInputMap()[Qt::Key_Right] = false;
-        qDebug() << "release right";
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
     }
-}*/
+
+}
 
 void Map::Refresh()
 {
