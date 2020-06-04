@@ -20,6 +20,8 @@ public:
     QString getFilename();
     QString getName();
     void setPixMap(QString file);
+    bool getIsActivated();
+    void setIsActivated(bool value);
 
 
 private:
@@ -31,6 +33,7 @@ private:
     int posY;
     QString filename;
     QString name;
+    bool isActivated;
 };
 
 #endif // SPIKES_H

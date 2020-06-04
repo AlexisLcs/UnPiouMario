@@ -11,6 +11,7 @@ Spikes::Spikes( int length, QString file, int posX, int posY, int mDirection, QG
     this->mDirection = mDirection;
     this->name = "spikes";
     this->filename = file;
+    this->isActivated = false;
 }
 
 QRectF Spikes::boundingRect() const {
@@ -51,4 +52,12 @@ QString Spikes::getName() {
 
 QString Spikes::getFilename() {
     return this->filename;
+}
+
+bool Spikes::getIsActivated() {
+    return this->isActivated;
+}
+
+void Spikes::setIsActivated(bool value) {
+    this->isActivated = value;
 }
