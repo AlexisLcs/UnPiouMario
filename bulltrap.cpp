@@ -11,6 +11,7 @@ BullTrap::BullTrap( int length, QString fileL, QString fileR, int posX, int posY
     this->fileR = fileR;
     this->mDirection = mDirection;
     this->name = "bulltrap";
+    this->velocity = 20;
 }
 
 
@@ -44,10 +45,6 @@ void BullTrap::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     setTransformOriginPoint(boundingRect().center());
 }
 
-int BullTrap::type() const {
-    return Type;
-}
-
 int BullTrap::getPosX() {
     return this->posX;
 }
@@ -60,8 +57,28 @@ QString BullTrap::getName() {
     return this->name;
 }
 
+void BullTrap::moveBullTrap()
+{
+    //déplacement
+    //changement de direction
+    if(this->getPosX() < 6260)
+        mDirection = 1;
+    if(this->getPosX() > 6866)
+        mDirection = 0;
 
-void BullTrap::moveBull(){
+    //déplacement en fonction de la direction
+    if(mDirection == 1) //if right
+    {
+        posX += velocity;
+    }
+    if(mDirection == 0) //if left
+    {
+        posX -= velocity;
+    }
 
+
+    //partie graphique
+    //nextFrame();
+    this->setPos(posX, posY);
+    //qDebug() << this->getPosX();
 }
-

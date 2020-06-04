@@ -15,6 +15,9 @@ public:
     int getPosX();
     int getPosY();
     QString getName();
+    void FallBomb();
+    bool getIsFalling() const;
+    void setIsFalling(bool value);
 
 private:
     int mCurrentFrame;
@@ -25,6 +28,8 @@ private:
     int posY;
     QString filename;
     QString name;
+    int velocity;
+    bool isFalling;
 };
 
 #endif // BOMBETRAP_H

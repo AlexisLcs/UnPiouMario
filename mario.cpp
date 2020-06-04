@@ -181,7 +181,7 @@ void Mario::Jump()
 
 void Mario::Fall()
 {
-    if(!getIsOnGround()){
+    if(!getIsOnGround()) {
         setPos(x(),y()+this->velocity[1]);
         this->posY += this->velocity[1];
         this->velocity[1] = this->velocity[1]+this->gravity[1];

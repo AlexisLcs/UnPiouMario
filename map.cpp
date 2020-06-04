@@ -1,6 +1,5 @@
 #include "map.h"
 
-
 static bool DEV_ON = false;
 
 Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,780, parent), scroll(s)
@@ -8,6 +7,7 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
     this->scroll->setValue(0);
     this->scroll->update();
     this->listAll = listAll;
+    //movingItems = new QList<QGraphicsItem*>();
     initPlayField();
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
@@ -178,10 +178,11 @@ void Map::initPlayField(){
         addItem(bricktrap);
     }
 
+    this->bombTraps = *listBombesTraps;
     Q_FOREACH(BombeTrap * bombe, *listBombesTraps){
         bombe->setPos(bombe->getPosX(), bombe->getPosY());
         addItem(bombe);
-        bombe->setVisible(DEV_ON);
+        //bombe->setVisible(DEV_ON);
     }
 
     Q_FOREACH(SuperBrick * superbricks, *listSuperBricks){
@@ -207,6 +208,7 @@ void Map::initPlayField(){
     Q_FOREACH(BullTrap * bullTrap, *listBullTrap){
         bullTrap->setPos(bullTrap->getPosX(), bullTrap->getPosY());
         addItem(bullTrap);
+        movingItems.append(bullTrap); //ajout du bulltrap dans les movingitems
         qDebug() << bullTrap;
     }
 
@@ -228,6 +230,23 @@ void Map::initPlayField(){
     Q_FOREACH(Castle * castle, *listeCastleRight){
         castle->setPos(castle->getPosX(), castle->getPosY());
         addItem(castle);
+    }
+}
+
+QList<QGraphicsItem *> Map::getMovingItems()
+{
+    return movingItems;
+}
+void Map::setMovingItems(QList<QGraphicsItem *> value)
+{
+    movingItems = value;
+}
+void Map::moveItems()
+{
+    foreach(QGraphicsItem* item, movingItems)
+    {
+        if(BullTrap * bulltrap = qgraphicsitem_cast<BullTrap *>(item))
+            bulltrap->moveBullTrap();
     }
 }
 
@@ -279,17 +298,21 @@ void Map::Refresh()
     //collision
     collisionMario();
     collisionMarioTraps();
+
+    //déplacement des moving items
+    moveItems();
+    //gestion des bombs
+    //cela se fait ici car il n'y a pas de collisions directe avec les bomb
+    TriggerBomb();
+
     //déplacement
     this->myMario->getMario()->moveMario();
-    collisionMario();
-    collisionMarioTraps();
-    //deplacement bulltrap FELIX
-
 }
 
 void Map::collisionMarioTraps(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
+        qDebug() << item;
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             if(this->myMario->getMario()->getPosX() + 35 >= spike->getPosX() && !spike->getIsActivated()){
                 spike->setPixMap(spike->getFilename());
@@ -380,6 +403,15 @@ void Map::collisionMarioTraps(){
                     this->myMario->getMario()->setGoLeft(true);
                 }
             }
+        }
+        else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
+            qDebug() << "collision bulltrap";
+            //fonction de mort
+        }
+
+        else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
+            qDebug() << "collision bombe";
+            //fonction de mort
         }
     }
 }
@@ -515,10 +547,29 @@ void Map::collisionMario(){
                 }
             }
         }
-    } else {
+    }
+    else {
         this->myMario->getMario()->setIsOnGround(false);
         this->myMario->getMario()->setGoRight(true);
         this->myMario->getMario()->setGoLeft(true);
+    }
+
+}
+
+
+//trigger pour la gestion des bombes
+void Map::TriggerBomb()
+{
+    foreach(BombeTrap* bomb, bombTraps)
+    {
+        //qDebug() << "mario x" << myMario->getMario()->getPosX();
+        //qDebug() << "bomb x" << bomb->getPosX();
+        //qDebug() << "mario x - bomb x" <<  myMario->getMario()->getPosX() - bomb->getPosX();
+        if((myMario->getMario()->getPosX() + 30 >= bomb->getPosX())){
+            bomb->setIsFalling(true);
+        }
+
+        bomb->FallBomb();
     }
 }
 
@@ -539,3 +590,14 @@ void Map::setValueScroll(int value){
     this->scroll->setValue(value);
 }
 
+<<<<<<< HEAD
+=======
+void Map::initScroll(){
+    this->scroll->setValue(0);
+}
+
+void Map::setValueScroll(int value){
+    this->scroll->setValue(value);
+}
+
+>>>>>>> origin/Felix
