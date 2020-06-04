@@ -162,7 +162,6 @@ void Map::initPlayField(){
     Q_FOREACH(Spikes * spikes, *listeSpikes){
         spikes->setPos(spikes->getPosX(), spikes->getPosY());
         addItem(spikes);
-        //spikes->hide();
     }
 
     Q_FOREACH(Brick * brick, *listBricks){
@@ -179,7 +178,6 @@ void Map::initPlayField(){
     Q_FOREACH(BombeTrap * bombe, *listBombesTraps){
         bombe->setPos(bombe->getPosX(), bombe->getPosY());
         addItem(bombe);
-        //bombe->setVisible(DEV_ON);
     }
 
     Q_FOREACH(SuperBrick * superbricks, *listSuperBricks){

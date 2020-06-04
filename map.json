@@ -101,32 +101,6 @@
 		  "image": "bigstairs.png"
 		}
 	},
-	"stairblock": {
-		"1" : {
-			"posX":"2996",
-			"posY":"278",
-			"length":"1",
-			"image":"stairblock.png"
-			},
-		"2" : {
-			"posX":"3060",
-			"posY":"342",
-			"length":"1",
-			"image":"stairblock.png"
-			},
-		"3" : {
-			"posX":"3124",
-			"posY":"406",
-			"length":"1",
-			"image":"stairblock.png"
-			},
-		"4" : {
-			"posX":"3188",
-			"posY":"470",
-			"length":"1",
-			"image":"stairblock.png"
-			},
-	},
 	"castle": {
 	  "posX":"7775",
 	  "posY":"525",
@@ -196,7 +170,7 @@
 		"6" : {
 		  "posX":"4411",
 		  "posY":"234",
-		  "length":"7",
+		  "length":"6",
 		  "image": "brick.png"
 		},
 		"7" : {
@@ -226,6 +200,12 @@
 		"11" : {
 		  "posX":"4661",
 		  "posY":"576",
+		  "length":"1",
+		  "image": "brick.png"
+		},
+		"25" : {
+		  "posX":"4860",
+		  "posY":"600",
 		  "length":"1",
 		  "image": "brick.png"
 		}
@@ -752,13 +732,6 @@
 		  "activation":"all",
 		  "image": "bricktrap.png"
 		},
-		"25" : {
-		  "posX":"4911",
-		  "posY":"550",
-		  "length":"1",
-		  "activation":"all",
-		  "image": "bricktrap.png"
-		},
 		"26" : {
 		  "posX":"5161",
 		  "posY":"184",
@@ -826,14 +799,8 @@
 		  "length":"1",
 		  "image": "bombe.png"
 		},
-		"6" : {
-		  "posX":"5373",
-		  "posY":"-120",
-		  "length":"1",
-		  "image": "bombe.png"
-		},
 		"7" : {
-		  "posX":"5629",
+		  "posX":"5843",
 		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
