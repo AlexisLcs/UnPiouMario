@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QGraphicsView>
 #include <QSoundEffect>
+#include <QThread>
 
 #include "brick.h"
 #include "superbrick.h"
@@ -26,6 +27,9 @@
 #include "bulltrap.h"
 #include "soundmanager.h"
 #include "entity.h"
+#include "screenlabel.h"
+
+#define TIMER_REFRESH 17
 
 class Map : public QGraphicsScene
 {
@@ -40,6 +44,7 @@ public:
     static int const Longueur = 1200;
     void keyPressEvent(QKeyEvent * event);
     void keyReleaseEvent(QKeyEvent * event);
+    void checkGameOver();
     void playSound(QString sound);
     Entity *getMyMario() const;
     void setMyMario(Entity *value);
@@ -48,14 +53,19 @@ public slots:
     void Refresh();
     void initScroll();
     void setValueScroll(int value);
+    void reset();
 
 private:
     void initPlayField();
     QJsonObject listAll;
+    QObject * parent;
     QTimer * m_timer;
     Entity * myMario;
     QScrollBar * scroll;
     SoundManager * soundManager;
+    bool gameIsOver = false;
+    int deathCounter = 0;
+    int loopDeath = 0;
 
 
 };

@@ -28,6 +28,7 @@ SOURCES += \
     map.cpp \
     mario.cpp \
     pipe.cpp \
+    screenlabel.cpp \
     sol.cpp \
     soltrap.cpp \
     soundmanager.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     mario.h \
     objectype.h \
     pipe.h \
+    screenlabel.h \
     sol.h \
     soltrap.h \
     soundmanager.h \

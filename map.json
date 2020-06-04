@@ -125,7 +125,7 @@
 	  "posY":"656",
 	  "length":"1",
 	  "image": "marioskate.png"
-	},	
+	},
 	"bulltrap": {
 		"1" : {
 		  "posX":"6866",
@@ -775,7 +775,7 @@
 		  "activation":"all",
 		  "image": "bricktrap.png"
 		}
-	},	
+	},
 	"bombstrap": {
 		"1" : {
 		  "posX":"700",

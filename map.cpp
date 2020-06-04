@@ -5,6 +5,7 @@ static bool DEV_ON = false;
 
 Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,780, parent), scroll(s)
 {
+    this->parent = parent;
     this->scroll->setValue(0);
     this->scroll->update();
     this->listAll = listAll;
@@ -14,7 +15,7 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
 
     this->soundManager = new SoundManager();
 
-    m_timer->start(17);
+    m_timer->start(TIMER_REFRESH);
 }
 
 Map::~Map()
@@ -210,6 +211,20 @@ void Map::initPlayField(){
         qDebug() << bullTrap;
     }
 
+    ScreenLabel * item = new ScreenLabel();
+
+
+    /* Initialisation du compteur de mort */
+    item->setPos(20, 5);
+    item->setPlainText("Nb. de morts : " + QString::number(deathCounter));
+    item->setDefaultTextColor(Qt::white);
+    item->setScale(2);
+    item->setVisible(true);
+
+    addItem(item);
+
+    this->myMario->getMario()->setCounter(item);
+
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
     this->myMario->getMario()->setPixmap(pixMario);
     this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(), this->myMario->getMario()->getPosY());
@@ -243,17 +258,17 @@ void Map::setMyMario(Entity *value)
 }
 void Map::keyPressEvent(QKeyEvent *event) {
 
-    if(event->key() == Qt::Key_Left){
+    if(event->key() == Qt::Key_Left && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", true);
     }
 
-    if(event->key() == Qt::Key_Right){
+    if(event->key() == Qt::Key_Right && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", true);
     }
 
-    if(event->key() == Qt::Key_Up){
+    if(event->key() == Qt::Key_Up && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", true);
     }
@@ -283,6 +298,9 @@ void Map::Refresh()
     this->myMario->getMario()->moveMario();
     //deplacement bulltrap FELIX
 
+    // Check Game Over
+    checkGameOver();
+
 }
 
 void Map::collisionMarioTraps(){
@@ -291,6 +309,7 @@ void Map::collisionMarioTraps(){
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             playSound("spikes");
             spike->setPixMap(spike->getFilename());
+            gameIsOver = true;
         }
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
             if(this->myMario->getMario()->getPosX() + 40 >= solTrap->getPosX()){
@@ -450,6 +469,51 @@ void Map::collisionMario(){ //Brick
         this->myMario->getMario()->setIsOnGround(false);
         this->myMario->getMario()->setGoRight(true);
         this->myMario->getMario()->setGoLeft(true);
+    }
+}
+
+void Map::reset() {
+    QList<QGraphicsItem *> itemList = items();
+
+    /* Reset all items */
+    Q_FOREACH(QGraphicsItem * item, itemList) {
+        removeItem(item);
+    }
+
+    /* Generate a new scene */
+    initPlayField();
+    setValueScroll(0);
+}
+
+void Map::checkGameOver() {
+    if(this->myMario->getMario()->getPosY() > 800)
+        gameIsOver = true;
+
+    if(gameIsOver){
+        if(loopDeath == 0) {
+            ScreenLabel * label = new ScreenLabel();
+            label->setPos(scroll->value() + 410, 300);
+            label->setPlainText("GAME OVER");
+            label->setDefaultTextColor(Qt::white);
+            label->setScale(5);
+            label->setVisible(true);
+
+            addItem(label);
+
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", false);
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
+        }
+        ++loopDeath;
+    }
+    if(loopDeath > 2000/TIMER_REFRESH) {
+        ++deathCounter;
+        loopDeath = 0;
+        gameIsOver = false;
+        reset();
     }
 }
 
