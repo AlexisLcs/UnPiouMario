@@ -551,13 +551,6 @@
 		}
 	},	
 	"brickstrap": {
-		"404" : {
-		  "posX":"164",
-		  "posY":"576",
-		  "length":"1",
-		  "activation":"down",
-		  "image": "bricktrap.png"
-		},
 		"40" : {
 		  "posX":"1585",
 		  "posY":"576",

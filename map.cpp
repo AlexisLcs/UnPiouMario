@@ -288,12 +288,11 @@ void Map::Refresh()
 void Map::collisionMarioTraps(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
-        /*if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
+        if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             playSound("spikes");
-            qDebug() << spike->getFilename();
             spike->setPixMap(spike->getFilename());
         }
-        else*/ if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
+        else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
             if(this->myMario->getMario()->getPosX() + 40 >= solTrap->getPosX()){
                 solTrap->setVisible(false);
                 playSound("soltrap");
