@@ -1,6 +1,5 @@
 #include "map.h"
 
-
 static bool DEV_ON = false;
 
 Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,780, parent), scroll(s)
@@ -179,10 +178,11 @@ void Map::initPlayField(){
         addItem(bricktrap);
     }
 
+    this->bombTraps = *listBombesTraps;
     Q_FOREACH(BombeTrap * bombe, *listBombesTraps){
         bombe->setPos(bombe->getPosX(), bombe->getPosY());
         addItem(bombe);
-        bombe->setVisible(DEV_ON);
+        //bombe->setVisible(DEV_ON);
     }
 
     Q_FOREACH(SuperBrick * superbricks, *listSuperBricks){
@@ -302,6 +302,9 @@ void Map::Refresh()
     this->myMario->getMario()->moveMario();
     //déplacement des moving items
     moveItems();
+    //gestion des bombs
+    //cela se fait ici car il n'y a pas de collisions directe avec les bomb
+    TriggerBomb();
 }
 
 void Map::collisionMarioTraps(){
@@ -335,6 +338,11 @@ void Map::collisionMarioTraps(){
 
         else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
             qDebug() << "collision bulltrap";
+            //fonction de mort
+        }
+
+        else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
+            qDebug() << "collision bombe";
             //fonction de mort
         }
     }
@@ -431,6 +439,22 @@ void Map::collisionMario(){ //Brick
     else {
         this->myMario->getMario()->setGoRight(true);
         this->myMario->getMario()->setGoLeft(true);
+    }
+}
+
+//trigger pour la gestion des bombes
+void Map::TriggerBomb()
+{
+    foreach(BombeTrap* bomb, bombTraps)
+    {
+        //qDebug() << "mario x" << myMario->getMario()->getPosX();
+        //qDebug() << "bomb x" << bomb->getPosX();
+        //qDebug() << "mario x - bomb x" <<  myMario->getMario()->getPosX() - bomb->getPosX();
+        if((myMario->getMario()->getPosX() + 30 >= bomb->getPosX())){
+            bomb->setIsFalling(true);
+        }
+
+        bomb->FallBomb();
     }
 }
 

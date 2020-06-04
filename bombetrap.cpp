@@ -9,6 +9,8 @@ BombeTrap::BombeTrap( int length, QString file, int posX, int posY, QGraphicsIte
     this->posX = posX;
     this->posY = posY;
     this->name = "bombetrap";
+    this->velocity = 20;
+    this->isFalling = false;
 }
 
 
@@ -40,3 +42,29 @@ int BombeTrap::getPosY() {
 QString BombeTrap::getName() {
     return this->name;
 }
+
+void BombeTrap::FallBomb()
+{
+    if(isFalling == true)
+    {
+        if(posY < 800)
+        {
+            posY += velocity;
+            this->setPos(posX, posY);
+        }
+        else
+            this->setVisible(false);
+    }
+}
+
+bool BombeTrap::getIsFalling() const
+{
+    return isFalling;
+}
+
+void BombeTrap::setIsFalling(bool value)
+{
+    isFalling = value;
+}
+
+

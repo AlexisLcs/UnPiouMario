@@ -10,7 +10,6 @@
 #include <QTimer>
 #include <QGraphicsView>
 #include <QSoundEffect>
-#include <QtMath>
 
 #include "brick.h"
 #include "superbrick.h"
@@ -61,7 +60,6 @@ private:
     QTimer * m_timer;
     Entity * myMario;
     QList<QGraphicsItem*> movingItems; //item (autre que mario) qui devront bouger
-    QList<BombeTrap*> bombTraps; //list de toutes les bombes pour la gestion des trigger
     QScrollBar * scroll;
     SoundManager * soundManager;
 
