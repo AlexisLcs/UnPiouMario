@@ -42,6 +42,13 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
         }
     }
 
+    if(name == "stairblock"){
+        Q_FOREACH(QJsonValue stairblock, listeObject){
+            StairBlock * item = new StairBlock(stairblock["length"].toString().toInt(), stairblock["image"].toString(), stairblock["posX"].toString().toInt(), stairblock["posY"].toString().toInt());
+            listeRetour->append(item);
+        }
+    }
+
     if(name == "soltrap"){
         Q_FOREACH(QJsonValue soltrap, listeObject){
             SolTrap * item = new SolTrap(soltrap["length"].toString().toInt(), soltrap["image"].toString(), soltrap["posX"].toString().toInt(), soltrap["posY"].toString().toInt());
@@ -139,6 +146,7 @@ void Map::initPlayField(){
     QList<BrickTrap*> * listBricksTraps = (QList<BrickTrap*>*)getGraphicsItem("brickstrap");
     QList<BombeTrap*> * listBombesTraps = (QList<BombeTrap*>*)getGraphicsItem("bombstrap");
     QList<Stairs*> * listStairs = (QList<Stairs*>*)getGraphicsItem("stairs");
+    QList<StairBlock*> * listStairBlock = (QList<StairBlock*>*)getGraphicsItem("stairblock");
     QList<BullTrap*> * listBullTrap = (QList<BullTrap*>*)getGraphicsItem("bulltrap");
     QList<Castle*> * listeCastleRight = (QList<Castle*>*)getGraphicsItem("castleR");
 
@@ -152,6 +160,11 @@ void Map::initPlayField(){
     Q_FOREACH(Stairs * stairs, *listStairs){
         stairs->setPos(stairs->getPosX(), stairs->getPosY());
         addItem(stairs);
+    }
+
+    Q_FOREACH(StairBlock * stairblock, *listStairBlock){
+        stairblock->setPos(stairblock->getPosX(), stairblock->getPosY());
+        addItem(stairblock);
     }
 
     Q_FOREACH(SolTrap * solTrap, *listeSolTrap){
@@ -354,8 +367,8 @@ void Map::collisionMarioTraps(){
                     brickTrap->setIsActivated(true);
                 }
                 if(this->myMario->getMario()->getIsJumping() &&
-                           ((this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50)) ||
-                           (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX()))) &&
+                           ((this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() <= brickTrap->getPosX() + 50)) ||
+                           (this->myMario->getMario()->getPosX()<= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX()))) &&
                            this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() + 50)
                 {
                     if(brickTrap->getIsActivated()){
@@ -497,6 +510,42 @@ void Map::collisionMario(){
                     this->myMario->getMario()->setGoLeft(true);
                 }
             }
+
+            else if(StairBlock * stairBlock = qgraphicsitem_cast<StairBlock *>(item)){ //StairBlock
+                if((this->myMario->getMario()->getPosX() + 50 >= stairBlock->getPosX() ||
+                        this->myMario->getMario()->getPosX() <= stairBlock->getPosX() + 64) &&
+                        this->myMario->getMario()->getPosY() + 70 >= stairBlock->getPosY() &&
+                        this->myMario->getMario()->getPosY() + 70 <= stairBlock->getPosY() + 30 &&
+                        ((this->myMario->getMario()->getIsFalling()) || (!this->myMario->getMario()->getIsOnGround())))
+                {
+                    this->myMario->getMario()->setIsFalling(false);
+                    this->myMario->getMario()->setIsJumping(false);
+                    this->myMario->getMario()->resetJump();
+                    this->myMario->getMario()->setGoRight(true);
+                    this->myMario->getMario()->setGoLeft(true);
+                    this->myMario->getMario()->setIsOnGround(true);
+                }
+                else if(this->myMario->getMario()->getPosX() <= stairBlock->getPosX() + 64 &&
+                        this->myMario->getMario()->getPosX() + 50 >= stairBlock->getPosX() + 64 &&
+                        (this->myMario->getMario()->getIsFalling() || (this->myMario->getMario()->getIsOnGround())))
+                {
+                    this->myMario->getMario()->setGoLeft(false);
+                    this->myMario->getMario()->setGoRight(true);
+                }
+                else if(this->myMario->getMario()->getPosX() + 50 >= stairBlock->getPosX() &&
+                        this->myMario->getMario()->getPosX() <= stairBlock->getPosX() &&
+                        (this->myMario->getMario()->getIsFalling() || (this->myMario->getMario()->getIsOnGround())))
+                {
+                    this->myMario->getMario()->setGoRight(false);
+                    this->myMario->getMario()->setGoLeft(true);
+                }
+                else{
+                    this->myMario->getMario()->setIsOnGround(false);
+                    this->myMario->getMario()->setGoRight(true);
+                    this->myMario->getMario()->setGoLeft(true);
+                }
+            }
+
             else if(SuperBrick * superBrick = qgraphicsitem_cast<SuperBrick *>(item)){ //SuperBrick
                 if(this->myMario->getMario()->getIsJumping() &&
                            ((this->myMario->getMario()->getPosX() + 40 >= superBrick->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= superBrick->getPosX() + 50)) ||
@@ -679,7 +728,7 @@ void Map::checkWin() {
         label->setScale(5);
         label->setVisible(true);
         addItem(label);
-
+        this->soundManager->musique.stop();
         playSound("win");
         winChecked = true;
     }

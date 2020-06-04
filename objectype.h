@@ -11,5 +11,6 @@ const int brickType = 6;
 const int superBrickType = 7;
 const int bullTrapType = 8;
 const int bombTrapType = 9;
+const int stairBlock = 10;
 
 #endif // OBJECTTYPE_H
