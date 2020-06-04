@@ -332,6 +332,11 @@ void Map::collisionMarioTraps(){
                 }
             }
         }
+
+        else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
+            qDebug() << "collision bulltrap";
+            //fonction de mort
+        }
     }
 }
 

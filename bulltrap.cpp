@@ -80,5 +80,5 @@ void BullTrap::moveBullTrap()
     //partie graphique
     //nextFrame();
     this->setPos(posX, posY);
-    qDebug() << this->getPosX();
+    //qDebug() << this->getPosX();
 }
