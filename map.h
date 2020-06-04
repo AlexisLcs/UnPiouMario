@@ -24,6 +24,7 @@
 #include "bricktrap.h"
 #include "bombetrap.h"
 #include "stairs.h"
+#include "StairBlock.h"
 #include "bulltrap.h"
 #include "soundmanager.h"
 #include "entity.h"

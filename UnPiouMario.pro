@@ -32,6 +32,7 @@ SOURCES += \
     soltrap.cpp \
     soundmanager.cpp \
     spikes.cpp \
+    stairblock.cpp \
     stairs.cpp \
     superbrick.cpp
 
@@ -53,6 +54,7 @@ HEADERS += \
     soltrap.h \
     soundmanager.h \
     spikes.h \
+    stairblock.h \
     stairs.h \
     superbrick.h
 
