@@ -123,7 +123,6 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
 
 
 void Map::initPlayField(){
-    qDebug() << "init map";
 
     setSceneRect(0,0,8000,780);
 
@@ -147,9 +146,6 @@ void Map::initPlayField(){
     Q_FOREACH(Sol * sol, *listSols){
         sol->setPos(sol->getPosX(), sol->getPosY());
         addItem(sol);
-        if(sol->isVisible() == 1){
-            sol->setVisible(DEV_ON);
-        }
     }
 
     Q_FOREACH(Stairs * stairs, *listStairs){
@@ -209,7 +205,6 @@ void Map::initPlayField(){
         bullTrap->setPos(bullTrap->getPosX(), bullTrap->getPosY());
         addItem(bullTrap);
         movingItems.append(bullTrap); //ajout du bulltrap dans les movingitems
-        qDebug() << bullTrap;
     }
 
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
@@ -312,7 +307,6 @@ void Map::Refresh()
 void Map::collisionMarioTraps(){
     QList<QGraphicsItem*> items =  collidingItems(this->myMario->getMario());
     foreach(QGraphicsItem *item, items){
-        qDebug() << item;
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             if(this->myMario->getMario()->getPosX() + 35 >= spike->getPosX() && !spike->getIsActivated()){
                 spike->setPixMap(spike->getFilename());
@@ -328,18 +322,17 @@ void Map::collisionMarioTraps(){
                 this->myMario->getMario()->setIsFalling(true);
             }
         }
-        else if(BrickTrap * brickTrap = qgraphicsitem_cast<BrickTrap *>(item)){               
+        else if(BrickTrap * brickTrap = qgraphicsitem_cast<BrickTrap *>(item)){
+            if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
+                brickTrap->setPixMap(brickTrap->getFilename());
+                brickTrap->setIsActivated(true);
+            }
             if(this->myMario->getMario()->getIsJumping() &&
                        ((this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50)) ||
                        (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX()))) &&
                        this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() + 50)
             {
-                qDebug() << "Tape en bas";
-                if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
-                    brickTrap->setPixMap(brickTrap->getFilename());
-                    brickTrap->setIsActivated(true);
-                }
-                else if(brickTrap->getActivation() == "down" && !brickTrap->getIsActivated()){
+                if(brickTrap->getActivation() == "down" && !brickTrap->getIsActivated()){
                     brickTrap->setPixMap(brickTrap->getFilename());
                     brickTrap->setIsActivated(true);
                 }
@@ -355,16 +348,9 @@ void Map::collisionMarioTraps(){
             }
             else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
                     this->myMario->getMario()->getPosX()<= brickTrap->getPosX() + 50 &&
-                    this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() - 50 &&
                     this->myMario->getMario()->getPosY() + 70 <= brickTrap->getPosY() + 50 &&
                     (this->myMario->getMario()->getIsFalling() || !this->myMario->getMario()->getIsOnGround()))
             {
-                qDebug() << "Tape en haut";
-                if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
-                    brickTrap->setPixMap(brickTrap->getFilename());
-                    brickTrap->setIsActivated(true);
-                }
-
                 if(brickTrap->getIsActivated()){
                     this->myMario->getMario()->setIsFalling(false);
                     this->myMario->getMario()->setIsJumping(false);
@@ -378,12 +364,6 @@ void Map::collisionMarioTraps(){
                     this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() + 50 &&
                     !this->myMario->getMario()->getIsOnGround())
             {
-                qDebug() << "Tape à gauche";
-                if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
-                    brickTrap->setPixMap(brickTrap->getFilename());
-                    brickTrap->setIsActivated(true);
-                }
-
                 if(brickTrap->getIsActivated()){
                     this->myMario->getMario()->setGoLeft(false);
                     this->myMario->getMario()->setGoRight(true);
@@ -393,11 +373,6 @@ void Map::collisionMarioTraps(){
                     this->myMario->getMario()->getPosX() <= brickTrap->getPosX() &&
                     !this->myMario->getMario()->getIsOnGround())
             {
-                qDebug() << "Tape à droite";
-                if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
-                    brickTrap->setPixMap(brickTrap->getFilename());
-                    brickTrap->setIsActivated(true);
-                }
                 if(brickTrap->getIsActivated()){
                     this->myMario->getMario()->setGoRight(false);
                     this->myMario->getMario()->setGoLeft(true);
@@ -405,12 +380,10 @@ void Map::collisionMarioTraps(){
             }
         }
         else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
-            qDebug() << "collision bulltrap";
             //fonction de mort
         }
 
         else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
-            qDebug() << "collision bombe";
             //fonction de mort
         }
     }
@@ -424,10 +397,9 @@ void Map::collisionMario(){
                 if((this->myMario->getMario()->getPosX() + 40 >= pipe->getPosX() ||
                         this->myMario->getMario()->getPosX() + 10 <= pipe->getPosX() + 50) &&
                         this->myMario->getMario()->getPosY() + 70 >= pipe->getPosY() &&
-                        this->myMario->getMario()->getPosY() + 70 <= pipe->getPosY() + 30 &&
+                        this->myMario->getMario()->getPosY() + 70 <= pipe->getPosY() + 50 &&
                         ((this->myMario->getMario()->getIsFalling()) || (!this->myMario->getMario()->getIsOnGround()))) // && this->myMario->getMario()->getIsFalling()
                 {
-                    qDebug() << "Tape en haut";
                     this->myMario->getMario()->setIsFalling(false);
                     this->myMario->getMario()->setIsJumping(false);
                     this->myMario->getMario()->resetJump();
@@ -437,9 +409,8 @@ void Map::collisionMario(){
                 }
                 else if(this->myMario->getMario()->getPosX() <= pipe->getPosX() + 75 &&
                         this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX() + 75 &&
-                        this->myMario->getMario()->getPosY() +70 >= pipe->getPosY() +20)
+                        this->myMario->getMario()->getPosY() + 70 >= pipe->getPosY() +20)
                 {
-                    qDebug() << "Tape à gauche";
                     this->myMario->getMario()->setGoLeft(false);
                     this->myMario->getMario()->setGoRight(true);
                 }
@@ -447,7 +418,6 @@ void Map::collisionMario(){
                         this->myMario->getMario()->getPosX() <= pipe->getPosX() &&
                         this->myMario->getMario()->getPosY() +70 >= pipe->getPosY() +20)
                 {
-                    qDebug() << "Tape à droite";
                     this->myMario->getMario()->setGoRight(false);
                     this->myMario->getMario()->setGoLeft(true);
                 }
@@ -496,9 +466,9 @@ void Map::collisionMario(){
 
             else if(Brick * brick = qgraphicsitem_cast<Brick *>(item)){ //Brick
                 if(this->myMario->getMario()->getIsJumping() &&
-                           ((this->myMario->getMario()->getPosX() + 40 >= brick->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50)) ||
-                           (this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brick->getPosX()))) &&
-                           this->myMario->getMario()->getPosY() + 70 >= brick->getPosY() + 50)
+                 ((this->myMario->getMario()->getPosX() + 40 >= brick->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50)) ||
+                  (this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brick->getPosX()))) &&
+                   this->myMario->getMario()->getPosY() + 70 >= brick->getPosY() + 25)
                 {
                     this->myMario->getMario()->setIsFalling(true);
                     this->myMario->getMario()->setIsJumping(false);
@@ -510,7 +480,7 @@ void Map::collisionMario(){
                 else if((this->myMario->getMario()->getPosX() + 40 >= brick->getPosX() ||
                         this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50) &&
                         this->myMario->getMario()->getPosY() + 70 >= brick->getPosY() &&
-                        this->myMario->getMario()->getPosY() + 70 <= brick->getPosY() + 30 &&
+                        this->myMario->getMario()->getPosY() + 70 <= brick->getPosY() + 25 &&
                         ((this->myMario->getMario()->getIsFalling()) || (!this->myMario->getMario()->getIsOnGround())))
                 {
                     this->myMario->getMario()->setIsFalling(false);
@@ -562,9 +532,6 @@ void Map::TriggerBomb()
 {
     foreach(BombeTrap* bomb, bombTraps)
     {
-        //qDebug() << "mario x" << myMario->getMario()->getPosX();
-        //qDebug() << "bomb x" << bomb->getPosX();
-        //qDebug() << "mario x - bomb x" <<  myMario->getMario()->getPosX() - bomb->getPosX();
         if((myMario->getMario()->getPosX() + 30 >= bomb->getPosX())){
             bomb->setIsFalling(true);
         }
@@ -589,15 +556,3 @@ void Map::initScroll(){
 void Map::setValueScroll(int value){
     this->scroll->setValue(value);
 }
-
-<<<<<<< HEAD
-=======
-void Map::initScroll(){
-    this->scroll->setValue(0);
-}
-
-void Map::setValueScroll(int value){
-    this->scroll->setValue(value);
-}
-
->>>>>>> origin/Felix
