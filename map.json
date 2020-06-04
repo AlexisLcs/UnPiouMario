@@ -101,6 +101,32 @@
 		  "image": "bigstairs.png"
 		}
 	},
+	"stairblock": {
+		"1" : {
+			"posX":"2996",
+			"posY":"278",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"2" : {
+			"posX":"3060",
+			"posY":"342",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"3" : {
+			"posX":"3124",
+			"posY":"406",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"4" : {
+			"posX":"3188",
+			"posY":"470",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+	},
 	"castle": {
 	  "posX":"7775",
 	  "posY":"525",
