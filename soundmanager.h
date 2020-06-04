@@ -9,6 +9,7 @@ class SoundManager
 {
 public:
     SoundManager();
+    //Déclaration de tous les objets correspondant à un bruit
     QSoundEffect spikes;
     QSoundEffect soltrap;
     QSoundEffect gameover;

@@ -25,12 +25,12 @@ private:
     QPixmap mPixmap;
     bool isJumping = 0;
     bool isFalling = 0;
-    bool isOnGround = true;
-    bool goRight = true;
-    bool goLeft = true;
-    bool isLooking; //true vers la droite; false vers la gauche
+    bool isOnGround = true; //Contient l'état : Mario touche le sol
+    bool goRight = true; //Contient l'état : Mario peut aller à droite
+    bool goLeft = true; //Contient l'état : Mario peut aller à gauche
+    bool isLooking; //Contient l'état : direction que prend mario | true vers la droite; false vers la gauche
     int running = 0;
-    bool isIdle = 0;
+    bool isIdle = 0; //TODO Lucas SpriteUpdater
     ScreenLabel * label;
     QScrollBar * scroll;
 

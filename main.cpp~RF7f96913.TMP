@@ -15,7 +15,6 @@
 #include "brick.h"
 #include "map.h"
 
-//méthode pour centrer la fenetre par rapport à l'ecran
 void center(QWidget &widget)
 {
     int x, y;
@@ -24,38 +23,39 @@ void center(QWidget &widget)
 
     QDesktopWidget * desktop = QApplication::desktop();
 
-    //récupération de la résolution de l'écran
     screenWidth = desktop->width();
     screenHeight = desktop->height();
 
     x = (screenWidth - Map::Longueur) / 2;
     y = (screenHeight - Map::Hauteur) / 2;
 
-    // on redimensionne la fenetre
     widget.setGeometry(x, y, Map::Longueur, Map::Hauteur);
-    // on la centre
     widget.move(qApp->screens()[0]->size().width() / 2 - (Map::Longueur / 2),qApp->screens()[0]->size().height() / 2 - (Map::Hauteur / 2));
-    widget.setFixedSize(Map::Longueur, Map::Hauteur); //taille fixe (pas redimensionnable)
+    widget.setFixedSize(Map::Longueur, Map::Hauteur);
 }
 
-//methode de lecture du fichier map.json
 QJsonObject readJson()
 {
     QString val;
     QFile file;
-    file.setFileName("..\\UnPiouMario\\map.json"); // récupération du chemin
+    file.setFileName("..\\UnPiouMario\\map.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
-    val = file.readAll(); //lecture
+    val = file.readAll();
     file.close();
 
-    //conversion en QJsonObject
-    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8()); //encodage du retour de lecture afin de formater le fichier correctement
-    QJsonObject sett2 = d.object(); //conversion en QJsonObject
+    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+
+    QJsonObject sett2 = d.object();
 
     return sett2;
 }
 
-//todo lucas
+QJsonObject getBricks(QJsonObject all)
+{
+    return all["bricks"].toObject();
+}
+
+
 int main(int argc, char *argv[])
 {
     //creation de la vue
@@ -67,22 +67,20 @@ int main(int argc, char *argv[])
     //lecture du json
     QJsonObject listeAll = readJson();
 
-    //creation du scroll
     QScrollBar * scroll = new QScrollBar();
     scroll = view.horizontalScrollBar();
 
-    //creation de la map (contenu de la vue)
+    //creation de la map
     Map * scenemap = new Map(scroll, listeAll, scene);
 
-    view.setScene(scenemap); //notre map devient notre scene
-    view.setBackgroundBrush(QColor(111, 135, 249)); //on definit la couleur du background
-    view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); //desactivation du scroll manuel
+    view.setScene(scenemap);
+    view.setBackgroundBrush(QColor(111, 135, 249));
+    view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view.setWindowTitle("UnPiouMario !"); //titre de la fenetre
+    view.setWindowTitle("UnPiouMario !");
 
-    //affichage
     view.show();
-    scenemap->initScroll(); //initialisation du scroll
+    scenemap->initScroll();
 
     center(view);
 

@@ -6,22 +6,28 @@
 #include <QDebug>
 #include "objectype.h"
 
+//classe pour les bombes
 class BombeTrap : public QGraphicsItem
 {
+
 public:
-    enum { Type = UserType + bombTrapType };
-    BombeTrap( int length, QString file, int posX, int posY,QGraphicsItem *parent = 0);
+    enum { Type = UserType + bombTrapType }; //enum pour pouvoir caster l'objet
+    BombeTrap( int length, QString file, int posX, int posY,QGraphicsItem *parent = 0); //constructeur
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     int type() const {return Type;}
+    void FallBomb();
+
+    //getters & setters
     int getPosX();
     int getPosY();
-    QString getName();
-    void FallBomb();
+    QString getName();  
     bool getIsFalling() const;
     void setIsFalling(bool value);
 
 private:
+    //attributs
     int mCurrentFrame;
     QPixmap mPixmap;
     int mLength;

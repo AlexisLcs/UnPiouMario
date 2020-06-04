@@ -2,8 +2,11 @@
 
 SoundManager::SoundManager()
 {
+    // On donne le chemin vers le fichier audio
     this->spikes.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\spikes.wav"));
+    // On donne le nombre de seconde à partir duquel il doit boucler (0 ne boucle pas)
     this->spikes.setLoopCount(0);
+    // On paramètre le volume audio
     this->spikes.setVolume(.40f);
 
     this->soltrap.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\soltrap.wav"));
@@ -37,6 +40,7 @@ SoundManager::SoundManager()
     this->fallbomb.setVolume(2.40f);
 
     this->musique.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\musique.wav"));
+    // Ici il s'agit de la musique de fond qui boucle 5000 fois
     this->musique.setLoopCount(5000);
     this->musique.setVolume(1.50f);
 

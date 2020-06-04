@@ -1,6 +1,6 @@
 #include "bombetrap.h"
 
-
+//constructeur
 BombeTrap::BombeTrap( int length, QString file, int posX, int posY, QGraphicsItem *parent)
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
@@ -39,6 +39,7 @@ QString BombeTrap::getName() {
     return this->name;
 }
 
+//fonction pour la chute
 void BombeTrap::FallBomb()
 {
     if(isFalling == true)
@@ -49,7 +50,7 @@ void BombeTrap::FallBomb()
             this->setPos(posX, posY);
         }
         else
-            this->setVisible(false);
+            this->setVisible(false); //on enleve la bombe de la map quand elle à finit sa chute
     }
 }
 
