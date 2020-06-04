@@ -9,6 +9,8 @@
 #include <QDebug>
 #include <QScrollBar>
 
+#include "screenlabel.h"
+
 class Mario: public QGraphicsPixmapItem {
 
 
@@ -29,6 +31,7 @@ private:
     bool isLooking; //true vers la droite; false vers la gauche
     int running = 0;
     bool isIdle = 0;
+    ScreenLabel * label;
     QScrollBar * scroll;
 
     QMap<QString, bool>* inputMap;
@@ -59,6 +62,8 @@ public:
     QMap<QString, bool>* getInputMap();
     void setInputMap(QMap<QString, bool>* &value);
     void setValueScroll(int value);
+    void setCounter(ScreenLabel * label);
+    ScreenLabel * getCounter();
 
     //autres methodes
     void resetJump();

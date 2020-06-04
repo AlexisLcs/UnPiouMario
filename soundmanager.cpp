@@ -9,4 +9,12 @@ SoundManager::SoundManager()
     this->soltrap.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\soltrap.wav"));
     this->soltrap.setLoopCount(0);
     this->soltrap.setVolume(.25f);
+
+    this->gameover.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\gameover.wav"));
+    this->soltrap.setLoopCount(0);
+    this->soltrap.setVolume(.25f);
+
+    this->win.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\win.wav"));
+    this->soltrap.setLoopCount(0);
+    this->soltrap.setVolume(.25f);
 }

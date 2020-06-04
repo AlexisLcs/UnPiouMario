@@ -4,6 +4,7 @@ static bool DEV_ON = false;
 
 Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,0,8000,780, parent), scroll(s)
 {
+    this->parent = parent;
     this->scroll->setValue(0);
     this->scroll->update();
     this->listAll = listAll;
@@ -14,7 +15,7 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
 
     this->soundManager = new SoundManager();
 
-    m_timer->start(18);
+    m_timer->start(TIMER_REFRESH);
 }
 
 Map::~Map()
@@ -193,11 +194,13 @@ void Map::initPlayField(){
 
     Q_FOREACH(Castle * castle, *listeCastle){
         castle->setPos(castle->getPosX(), castle->getPosY());
+        castelPosition = castle->getPosX();
         addItem(castle);
     }
 
     Q_FOREACH(FlagEND * flagend, *listeFlagEND){
         flagend->setPos(flagend->getPosX(), flagend->getPosY());
+        winPosition = flagend->getPosX();
         addItem(flagend);
     }
 
@@ -206,6 +209,20 @@ void Map::initPlayField(){
         addItem(bullTrap);
         movingItems.append(bullTrap); //ajout du bulltrap dans les movingitems
     }
+
+    ScreenLabel * item = new ScreenLabel();
+
+
+    /* Initialisation du compteur de mort */
+    item->setPos(20, 5);
+    item->setPlainText("Nb. de morts : " + QString::number(deathCounter));
+    item->setDefaultTextColor(Qt::white);
+    item->setScale(2);
+    item->setVisible(true);
+
+    addItem(item);
+
+    this->myMario->getMario()->setCounter(item);
 
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
     this->myMario->getMario()->setPixmap(pixMario);
@@ -257,17 +274,17 @@ void Map::setMyMario(Entity *value)
 }
 void Map::keyPressEvent(QKeyEvent *event) {
 
-    if(event->key() == Qt::Key_Left){
+    if(event->key() == Qt::Key_Left && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", true);
     }
 
-    if(event->key() == Qt::Key_Right){
+    if(event->key() == Qt::Key_Right && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", true);
     }
 
-    if(event->key() == Qt::Key_Up && this->myMario->getMario()->getIsOnGround()){
+    if(event->key() == Qt::Key_Up && this->myMario->getMario()->getIsOnGround() && !gameIsOver){
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", true);
     }
@@ -299,6 +316,11 @@ void Map::Refresh()
     //gestion des bombs
     //cela se fait ici car il n'y a pas de collisions directe avec les bomb
     TriggerBomb();
+    // Check Game Over
+    checkGameOver();
+
+    // Check Win
+    checkWin();
 
     //déplacement
     this->myMario->getMario()->moveMario();
@@ -312,6 +334,8 @@ void Map::collisionMarioTraps(){
                 spike->setPixMap(spike->getFilename());
                 spike->setIsActivated(true);
                 playSound("spikes");
+                /* GAME OVER */
+                gameIsOver = true;
             }
         }
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
@@ -418,11 +442,13 @@ void Map::collisionMarioTraps(){
             }
         }
         else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
-            //fonction de mort
+            /* GAME OVER */
+            gameIsOver = true;
         }
 
         else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
-            //fonction de mort
+            /* GAME OVER */
+            gameIsOver = true;
         }
     }
 }
@@ -578,12 +604,97 @@ void Map::TriggerBomb()
     }
 }
 
-void Map::playSound(QString sound){
-    if(sound == "spikes"){
-        this->soundManager->spikes.play();
+void Map::reset() {
+    QList<QGraphicsItem *> itemList = items();
+
+    /* Reset all items */
+    Q_FOREACH(QGraphicsItem * item, itemList) {
+        removeItem(item);
     }
-    else if(sound == "soltrap"){
+
+    /* Generate a new scene */
+    initPlayField();
+    setValueScroll(0);
+
+    soundPlayed = false;
+}
+
+void Map::checkGameOver() {
+    if(this->myMario->getMario()->getPosY() > 800){
+        playSound("gameover");
+        gameIsOver = true;
+    }
+    if(gameIsOver){
+        if(loopDeath == 0) {
+            ScreenLabel * label = new ScreenLabel();
+            label->setPos(scroll->value() + 410, 300);
+            label->setPlainText("GAME OVER");
+            label->setDefaultTextColor(Qt::white);
+            label->setScale(5);
+            label->setVisible(true);
+
+            addItem(label);
+
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", false);
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
+            this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+            this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
+        }
+        ++loopDeath;
+    }
+    if(loopDeath > 2500/TIMER_REFRESH) {
+        ++deathCounter;
+        loopDeath = 0;
+        gameIsOver = false;
+        reset();
+    }
+}
+
+void Map::checkWin() {
+    if(this->myMario->getMario()->getPosX() >= winPosition && !winChecked){
+        ScreenLabel * label = new ScreenLabel();
+        label->setPos(scroll->value() + 410, 300);
+        label->setPlainText("YOU WIN!");
+        label->setDefaultTextColor(Qt::white);
+        label->setScale(5);
+        label->setVisible(true);
+        addItem(label);
+
+        playSound("win");
+        winChecked = true;
+    }
+    if(winChecked){
+        if(this->myMario->getMario()->getPosX() <= castelPosition + 200) {
+            this->myMario->getMario()->moveRight();
+        }
+
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", false);
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
+    }
+}
+
+void Map::playSound(QString sound){
+    if(sound == "spikes" && !soundPlayed){
+        this->soundManager->spikes.play();
+        this->soundManager->gameover.play();
+        soundPlayed = true;
+    }
+    else if(sound == "soltrap" && !soundPlayed){
         this->soundManager->soltrap.play();
+    }
+    else if(sound == "win" && !soundPlayed){
+        this->soundManager->win.play();
+        soundPlayed = true;
+    }
+    else if(sound == "gameover" && !soundPlayed){
+        this->soundManager->gameover.play();
+        soundPlayed = true;
     }
 }
 

@@ -27,10 +27,6 @@ void BombeTrap::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     setTransformOriginPoint(boundingRect().center());
 }
 
-int BombeTrap::type() const {
-    return Type;
-}
-
 int BombeTrap::getPosX() {
     return this->posX;
 }

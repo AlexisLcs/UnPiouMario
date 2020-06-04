@@ -125,7 +125,7 @@
 	  "posY":"656",
 	  "length":"1",
 	  "image": "marioskate.png"
-	},	
+	},
 	"bulltrap": {
 		"1" : {
 		  "posX":"6865",
@@ -551,20 +551,6 @@
 		}
 	},	
 	"brickstrap": {
-		"404" : {
-		  "posX":"145",
-		  "posY":"480",
-		  "length":"1",
-		  "activation":"down",
-		  "image": "bricktrap.png"
-		},
-		"405" : {
-		  "posX":"264",
-		  "posY":"234",
-		  "length":"1",
-		  "activation":"all",
-		  "image": "bricktrap.png"
-		},
 		"40" : {
 		  "posX":"1585",
 		  "posY":"576",
@@ -782,47 +768,47 @@
 		  "activation":"all",
 		  "image": "bricktrap.png"
 		}
-	},	
+	},
 	"bombstrap": {
 		"1" : {
 		  "posX":"700",
-		  "posY":"173",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		},
 		"2" : {
 		  "posX":"1175",
-		  "posY":"173",
+		  "posY":"-120",
 		  "length":"6",
 		  "image": "bombe.png"
 		},
 		"3" : {
 		  "posX":"6938",
-		  "posY":"173",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		},
 		"4" : {
 		  "posX":"7248",
-		  "posY":"73",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		},
 		"5" : {
 		  "posX":"7440",
-		  "posY":"0",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		},
 		"6" : {
 		  "posX":"5373",
-		  "posY":"173",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		},
 		"7" : {
 		  "posX":"5629",
-		  "posY":"173",
+		  "posY":"-120",
 		  "length":"1",
 		  "image": "bombe.png"
 		}

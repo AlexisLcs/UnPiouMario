@@ -108,7 +108,13 @@ void Mario::setInputMap(QMap<QString, bool>* &value)
     inputMap = value;
 }
 
+void Mario::setCounter(ScreenLabel * label) {
+    this->label = label;
+}
 
+ScreenLabel * Mario::getCounter() {
+    return label;
+}
 
 /*Other methods*/
 void Mario::resetJump(){
@@ -123,6 +129,8 @@ void Mario::moveLeft()
     if(goLeft && this->getPosX() >= 0){
         if(this->getPosX() <= 7400){
             this->setValueScroll(this->scroll->value() - 10);
+            if(this->scroll->value() > 0)
+                this->getCounter()->setX(this->getCounter()->x() - 10);
         }
         goRight = true;
         setPos(x() - this->velocity[0],y());
@@ -136,6 +144,8 @@ void Mario::moveRight()
     if(goRight && this->getPosX() <= 7880){
         if(this->getPosX() >= 600){
             this->setValueScroll(this->scroll->value() + 10);
+            if(this->scroll->value() < 6802)
+                this->getCounter()->setX(this->getCounter()->x() + 10);
         }
         goLeft = true;
         setPos(x() + this->velocity[0],y());
