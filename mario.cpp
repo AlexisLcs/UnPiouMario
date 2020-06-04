@@ -146,10 +146,9 @@ void Mario::moveRight()
 //ATTENTION : quand on appelle cette méthode on suppose que isJumping == true
 void Mario::Jump()
 {
-        if(!isJumping) {
-            isJumping = true;
-        }
-
+    if(!isJumping) {
+        isJumping = true;
+    }
 
     //si on est en état saut
     if(isJumping)
@@ -172,10 +171,10 @@ void Mario::Jump()
         }
         else if(this->velocity[1] == MAXHEIGHT+1 && isFalling) {
             isJumping = false;
-            isFalling = false;
             this->velocity[1] = MAXHEIGHT;
             inputMap->remove("Qt::Key_Up");
             inputMap->insert("Qt::Key_Up", false);
+
         }
     }
 }
