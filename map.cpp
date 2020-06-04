@@ -455,6 +455,7 @@ void Map::collisionMario(){
                         this->myMario->getMario()->getPosY() + 70 <= stairBlock->getPosY() + 30 &&
                         ((this->myMario->getMario()->getIsFalling()) || (!this->myMario->getMario()->getIsOnGround())))
                 {
+                    qDebug() << "Tape haut";
                     this->myMario->getMario()->setIsFalling(false);
                     this->myMario->getMario()->setIsJumping(false);
                     this->myMario->getMario()->resetJump();
@@ -466,6 +467,7 @@ void Map::collisionMario(){
                         this->myMario->getMario()->getPosX() + 50 >= stairBlock->getPosX() + 64 &&
                         !this->myMario->getMario()->getIsOnGround())
                 {
+                    qDebug() << "Tape gauche";
                     this->myMario->getMario()->setGoLeft(false);
                     this->myMario->getMario()->setGoRight(true);
                 }
@@ -473,6 +475,7 @@ void Map::collisionMario(){
                         this->myMario->getMario()->getPosX() <= stairBlock->getPosX() &&
                         !this->myMario->getMario()->getIsOnGround())
                 {
+                    qDebug() << "Tape droite";
                     this->myMario->getMario()->setGoRight(false);
                     this->myMario->getMario()->setGoLeft(true);
                 }
