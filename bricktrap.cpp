@@ -1,6 +1,6 @@
 #include "bricktrap.h"
 
-BrickTrap::BrickTrap( int length, QString file, int posX, int posY, QString activation, QGraphicsItem *parent)
+BrickTrap::BrickTrap( int length, QString file, int posX, int posY, QString activation, QString canGoOn, QGraphicsItem *parent)
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
@@ -11,6 +11,12 @@ BrickTrap::BrickTrap( int length, QString file, int posX, int posY, QString acti
     this->name = "bricktrap";
     this->filename = file;
     this->isActivated = false;
+    if(canGoOn == "1"){
+        this->canGoOn = false;
+    }
+    else{
+        this->canGoOn = true;
+    }
 }
 
 
@@ -57,4 +63,12 @@ bool BrickTrap::getIsActivated() {
 
 void BrickTrap::setIsActivated(bool value) {
     this->isActivated = value;
+}
+
+bool BrickTrap::getCanGoOn() {
+    return this->canGoOn;
+}
+
+void BrickTrap::setCanGoOn(bool value) {
+    this->canGoOn = value;
 }

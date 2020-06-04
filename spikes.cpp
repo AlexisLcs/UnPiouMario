@@ -5,7 +5,7 @@ Spikes::Spikes( int length, QString file, int posX, int posY, int mDirection, QG
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\UnPiouMario\\images\\traps\\" + file);
+    mPixmap = QPixmap("..\\UnPiouMario\\images\\traps\\hide" + file);
     this->posX = posX;
     this->posY = posY;
     this->mDirection = mDirection;

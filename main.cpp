@@ -50,12 +50,6 @@ QJsonObject readJson()
     return sett2;
 }
 
-QJsonObject getBricks(QJsonObject all)
-{
-    return all["bricks"].toObject();
-}
-
-
 int main(int argc, char *argv[])
 {
     //creation de la vue

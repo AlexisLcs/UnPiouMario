@@ -192,6 +192,12 @@
 		  "posY":"600",
 		  "length":"1",
 		  "image": "brick.png"
+		},
+		"101" : {
+		  "posX":"3300",
+		  "posY":"300",
+		  "length":"1",
+		  "image": "brick.png"
 		}
 	},
 	"superbricks": {
@@ -525,6 +531,34 @@
 		  "length":"3",
 		  "direction":"0",
 		  "image": "spikesdown.png"
+		},
+		"401" : {
+		  "posX":"3300",
+		  "posY":"350",
+		  "length":"1",
+		  "direction":"0",
+		  "image": "spikesdown.png"
+		},
+		"402" : {
+		  "posX":"3300",
+		  "posY":"263",
+		  "length":"1",
+		  "direction":"0",
+		  "image": "spikesup.png"
+		},
+		"403" : {
+		  "posX":"3263",
+		  "posY":"300",
+		  "length":"1",
+		  "direction":"1",
+		  "image": "spikesleft.png"
+		},
+		"404" : {
+		  "posX":"3350",
+		  "posY":"300",
+		  "length":"1",
+		  "direction":"1",
+		  "image": "spikesrigth.png"
 		}
 	},	
 	"brickstrap": {
@@ -533,6 +567,7 @@
 		  "posY":"576",
 		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"41" : {
@@ -540,6 +575,7 @@
 		  "posY":"576",
 		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"42" : {
@@ -547,6 +583,7 @@
 		  "posY":"576",
 		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"43" : {
@@ -554,6 +591,7 @@
 		  "posY":"576",
 		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"44" : {
@@ -561,20 +599,15 @@
 		  "posY":"576",
 		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"2" : {
 		  "posX":"1585",
 		  "posY":"400",
 		  "length":"1",
-		  "activation":"all",
-		  "image": "bricktrap.png"
-		},
-		"45" : {
-		  "posX":"1635",
-		  "posY":"400",
-		  "length":"1",
 		  "activation":"down",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"12" : {
@@ -582,6 +615,7 @@
 		  "posY":"589",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"13" : {
@@ -589,6 +623,7 @@
 		  "posY":"539",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"14" : {
@@ -596,6 +631,7 @@
 		  "posY":"489",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		},
 		"18" : {
@@ -603,6 +639,7 @@
 		  "posY":"289",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"19" : {
@@ -610,6 +647,7 @@
 		  "posY":"239",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"20" : {
@@ -617,6 +655,7 @@
 		  "posY":"189",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"21" : {
@@ -624,6 +663,7 @@
 		  "posY":"139",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"22" : {
@@ -631,6 +671,7 @@
 		  "posY":"89",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"23" : {
@@ -638,6 +679,7 @@
 		  "posY":"39",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"24" : {
@@ -645,6 +687,7 @@
 		  "posY":"-11",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"26" : {
@@ -652,6 +695,7 @@
 		  "posY":"184",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"27" : {
@@ -659,6 +703,7 @@
 		  "posY":"134",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"28" : {
@@ -666,6 +711,7 @@
 		  "posY":"84",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"29" : {
@@ -673,6 +719,7 @@
 		  "posY":"34",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
 		  "image": "bricktrap.png"
 		},
 		"30" : {
@@ -680,6 +727,47 @@
 		  "posY":"-16",
 		  "length":"1",
 		  "activation":"all",
+		  "cangoon" : "1",
+		  "image": "bricktrap.png"
+		},
+		"101" : {
+		  "posX":"2910",
+		  "posY":"480",
+		  "length":"1",
+		  "activation":"all",
+		  "cangoon" : "0",
+		  "image": "bricktrap.png"
+		},
+		"102" : {
+		  "posX":"3313",
+		  "posY":"746",
+		  "length":"1",
+		  "activation":"all",
+		  "cangoon" : "0",
+		  "image": "bricktrap.png"
+		},
+		"103" : {
+		  "posX":"3085",
+		  "posY":"600",
+		  "length":"1",
+		  "activation":"all",
+		  "cangoon" : "0",
+		  "image": "bricktrap.png"
+		},
+		"104" : {
+		  "posX":"3465",
+		  "posY":"540",
+		  "length":"1",
+		  "activation":"all",
+		  "cangoon" : "0",
+		  "image": "bricktrap.png"
+		},
+		"105" : {
+		  "posX":"3705",
+		  "posY":"420",
+		  "length":"1",
+		  "activation":"all",
+		  "cangoon" : "0",
 		  "image": "bricktrap.png"
 		}
 	},
