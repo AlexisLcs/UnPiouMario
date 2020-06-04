@@ -19,6 +19,8 @@ public:
 
     int getPosX();
     int getPosY();
+    bool getMove();
+    void setMove(bool value);
     void moveBull();
     QString getName();
     void moveBullTrap();
@@ -38,6 +40,7 @@ private:
     QString fileR;
     QString name;
     int velocity;
+    bool move;
 };
 
 #endif // BULLTRAP_H

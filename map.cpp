@@ -137,7 +137,7 @@ void Map::initPlayField(){
     QList<Sol*> * listSols = (QList<Sol*>*)getGraphicsItem("sol");
     QList<Brick*> * listBricks = (QList<Brick*>*)getGraphicsItem("bricks");
     QList<SuperBrick*> * listSuperBricks = (QList<SuperBrick*>*)getGraphicsItem("superbricks");
-    QList<Mario*> * listeMario = (QList<Mario*>*)getGraphicsItem("mario");
+    getGraphicsItem("mario");
     QList<Castle*> * listeCastle = (QList<Castle*>*)getGraphicsItem("castle");
     QList<FlagEND*> * listeFlagEND = (QList<FlagEND*>*)getGraphicsItem("flagEND");
     QList<Pipe*> * listePipeLit = (QList<Pipe*>*)getGraphicsItem("pipe");
@@ -238,12 +238,12 @@ void Map::initPlayField(){
     QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
     this->myMario->getMario()->setPixmap(pixMario);
     this->myMario->getMario()->setPos(this->myMario->getMario()->getPosX(), this->myMario->getMario()->getPosY());
-  
+
     QMap<QString, bool> *inputMap = new QMap<QString, bool>();
     inputMap->insert("Qt::Key_Left", false);
     inputMap->insert("Qt::Key_Right", false);
     inputMap->insert("Qt::Key_Up", false);
-  
+
     this->myMario->getMario()->setInputMap(inputMap);
     addItem(this->myMario->getMario());
     this->myMario->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -270,7 +270,9 @@ void Map::moveItems()
     foreach(QGraphicsItem* item, movingItems)
     {
         if(BullTrap * bulltrap = qgraphicsitem_cast<BullTrap *>(item))
-            bulltrap->moveBullTrap();
+            if(bulltrap->getMove()){
+                bulltrap->moveBullTrap();
+            }
     }
 }
 
@@ -480,13 +482,14 @@ void Map::collisionMarioTraps(){
             // GAME OVER
             gameIsOver = true;
             playSound("bulltrap");
-            bullTrap->setVisible(false);
+            bullTrap->setMove(false);
         }
 
         else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
             // GAME OVER
             gameIsOver = true;
             playSound("explosion");
+            bombTrap->setVisible(false);
         }
     }
 }
@@ -647,6 +650,7 @@ void Map::collisionMario(){
             }
 
             else if(Sol * sol = qgraphicsitem_cast<Sol *>(item)){
+                (void)sol;
                 if(!this->myMario->getMario()->getIsOnGround()){
                     this->myMario->getMario()->setIsFalling(false);
                     this->myMario->getMario()->setIsJumping(false);

@@ -13,6 +13,7 @@ BullTrap::BullTrap( int length, QString fileL, QString fileR, int posX, int posY
     this->mDirection = mDirection;
     this->name = "bulltrap";
     this->velocity = 20;
+    this->move = true;
 }
 
 
@@ -44,6 +45,14 @@ void BullTrap::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->drawPixmap(i*52,0, mPixmap, mCurrentFrame, 0,52, 50);
     }
     setTransformOriginPoint(boundingRect().center());
+}
+
+bool BullTrap::getMove() {
+    return this->move;
+}
+
+void BullTrap::setMove(bool value) {
+    this->move = value;
 }
 
 int BullTrap::getPosX() {

@@ -3,7 +3,6 @@
 
 
 #include <QSoundEffect>
-#include <QMediaPlayer>
 
 class SoundManager
 {
@@ -13,13 +12,17 @@ public:
     QSoundEffect spikes;
     QSoundEffect soltrap;
     QSoundEffect gameover;
+    QSoundEffect gameovermario;
     QSoundEffect win;
     QSoundEffect explosion;
     QSoundEffect bulltrap;
-    QSoundEffect jump;
     QSoundEffect musique;
     QSoundEffect bip;
     QSoundEffect fallbomb;
+    QSoundEffect jump;
+    QSoundEffect jumpbis;
+    QSoundEffect jumpter;
+    QSoundEffect jumpqat;
 };
 
 #endif // SOUNDMANAGER_H
