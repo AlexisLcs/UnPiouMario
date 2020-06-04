@@ -117,12 +117,14 @@ ScreenLabel * Mario::getCounter() {
 }
 
 /*Other methods*/
+//réinitialise le saut de mario quand il touche le sol ou une plateforme
 void Mario::resetJump(){
     velocity[1] = MAXHEIGHT;
     inputMap->remove("Qt::Key_Up");
     inputMap->insert("Qt::Key_Up", false);
 }
 
+//Permet à Mario de bouger à gauche
 void Mario::moveLeft()
 {
     isLooking = false;
@@ -138,6 +140,7 @@ void Mario::moveLeft()
     }
 }
 
+//Permet à Mario de bouger à droite
 void Mario::moveRight()
 {
     isLooking = true;
@@ -153,7 +156,7 @@ void Mario::moveRight()
     }
 }
 
-//ATTENTION : quand on appelle cette méthode on suppose que isJumping == true
+//Permet à mario de sauter
 void Mario::Jump()
 {
     if(!isJumping) {
@@ -189,6 +192,7 @@ void Mario::Jump()
     }
 }
 
+//Gère la chute de Mario quand le saut n'attend pas sa valeur final (quand mario saute sur une plateforme plus haute ou plus basse ou qu'il chutte)
 void Mario::Fall()
 {
     if(!getIsOnGround()) {
@@ -202,6 +206,7 @@ void Mario::Fall()
     }
 }
 
+//TODO Lucas spriteUpdater
 void Mario::spriteUpdater() {
     if(isJumping){
         this->setPixmap(QPixmap("..\\UnPiouMario\\images\\mario\\mario_jump.png"));
@@ -225,6 +230,7 @@ void Mario::spriteUpdater() {
     }
 }
 
+//Permet à Mario d'exécuter les instructions de l'utilisateur
 void Mario::moveMario()
 {
 
@@ -249,7 +255,7 @@ void Mario::moveMario()
 }
 
 
-
+//Permet de définir la position du scroller
 void Mario::setValueScroll(int value){
     this->scroll->setValue(value);
 }
