@@ -9,11 +9,11 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
     this->scroll->update();
     this->listAll = listAll;
     //movingItems = new QList<QGraphicsItem*>();
+    this->soundManager = new SoundManager();
     initPlayField();
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
 
-    this->soundManager = new SoundManager();
 
     m_timer->start(TIMER_REFRESH);
 }
@@ -241,6 +241,7 @@ void Map::initPlayField(){
         castle->setPos(castle->getPosX(), castle->getPosY());
         addItem(castle);
     }
+    this->soundManager->musique.play();
 }
 
 QList<QGraphicsItem *> Map::getMovingItems()
@@ -283,6 +284,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     if(event->key() == Qt::Key_Up && this->myMario->getMario()->getIsOnGround() && !gameIsOver){
+        playSound("jump");
         this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
         this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", true);
     }
@@ -307,7 +309,9 @@ void Map::Refresh()
 
     //collision
     collisionMario();
-    collisionMarioTraps();
+    if(!DEV_ON){
+        collisionMarioTraps();
+    }
 
     //déplacement des moving items
     moveItems();
@@ -332,14 +336,13 @@ void Map::collisionMarioTraps(){
                 spike->setPixMap(spike->getFilename());
                 spike->setIsActivated(true);
                 playSound("spikes");
-                /* GAME OVER */
+                // GAME OVER
                 gameIsOver = true;
             }
         }
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
             if(this->myMario->getMario()->getPosX() + 40 >= solTrap->getPosX()){
                 solTrap->setVisible(false);
-                playSound("soltrap");
                 this->myMario->getMario()->setIsOnGround(false);
                 this->myMario->getMario()->setIsFalling(true);
             }
@@ -357,6 +360,7 @@ void Map::collisionMarioTraps(){
                 {
                     if(brickTrap->getIsActivated()){
                         brickTrap->setPixMap(brickTrap->getFilename());
+                        playSound("bip");
                         this->myMario->getMario()->setIsFalling(true);
                         this->myMario->getMario()->setIsJumping(false);
                         this->myMario->getMario()->resetJump();
@@ -397,6 +401,7 @@ void Map::collisionMarioTraps(){
                     }
                     if(brickTrap->getIsActivated()){
                         brickTrap->setPixMap(brickTrap->getFilename());
+                        playSound("bip");
                         this->myMario->getMario()->setIsFalling(true);
                         this->myMario->getMario()->setIsJumping(false);
                         this->myMario->getMario()->resetJump();
@@ -437,16 +442,24 @@ void Map::collisionMarioTraps(){
                         this->myMario->getMario()->setGoLeft(true);
                     }
                 }
+                else{
+                    this->myMario->getMario()->setIsOnGround(false);
+                    this->myMario->getMario()->setGoRight(true);
+                    this->myMario->getMario()->setGoLeft(true);
+                }
             }
         }
         else if(BullTrap * bullTrap = qgraphicsitem_cast<BullTrap *>(item)){
-            /* GAME OVER */
+            // GAME OVER
             gameIsOver = true;
+            playSound("bulltrap");
+            bullTrap->setVisible(false);
         }
 
         else if(BombeTrap * bombTrap = qgraphicsitem_cast<BombeTrap *>(item)){
-            /* GAME OVER */
+            // GAME OVER
             gameIsOver = true;
+            playSound("explosion");
         }
     }
 }
@@ -456,8 +469,8 @@ void Map::collisionMario(){
     if(items.size() > 0) {
         foreach(QGraphicsItem *item, items){
             if(Pipe * pipe = qgraphicsitem_cast<Pipe *>(item)){
-                if((this->myMario->getMario()->getPosX() + 40 >= pipe->getPosX() ||
-                        this->myMario->getMario()->getPosX() + 10 <= pipe->getPosX() + 50) &&
+                if((this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX() ||
+                        this->myMario->getMario()->getPosX() <= pipe->getPosX() + 75) &&
                         this->myMario->getMario()->getPosY() + 70 >= pipe->getPosY() &&
                         this->myMario->getMario()->getPosY() + 70 <= pipe->getPosY() + 50 &&
                         ((this->myMario->getMario()->getIsFalling()) || (!this->myMario->getMario()->getIsOnGround()))) // && this->myMario->getMario()->getIsFalling()
@@ -490,6 +503,7 @@ void Map::collisionMario(){
                            (this->myMario->getMario()->getPosX() + 10 <= superBrick->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= superBrick->getPosX()))) &&
                            this->myMario->getMario()->getPosY() + 70 >= superBrick->getPosY() + 50)
                 {
+                    playSound("bip");
                     this->myMario->getMario()->setIsFalling(true);
                     this->myMario->getMario()->setIsJumping(false);
                     this->myMario->getMario()->resetJump();
@@ -532,6 +546,7 @@ void Map::collisionMario(){
                   (this->myMario->getMario()->getPosX() + 10 <= brick->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brick->getPosX()))) &&
                    this->myMario->getMario()->getPosY() + 70 >= brick->getPosY() + 25)
                 {
+                    playSound("bip");
                     this->myMario->getMario()->setIsFalling(true);
                     this->myMario->getMario()->setIsJumping(false);
                     this->myMario->getMario()->resetJump();
@@ -595,7 +610,10 @@ void Map::TriggerBomb()
     foreach(BombeTrap* bomb, bombTraps)
     {
         if((myMario->getMario()->getPosX() + 30 >= bomb->getPosX())){
-            bomb->setIsFalling(true);
+            if(!bomb->getIsFalling()){
+                bomb->setIsFalling(true);
+                playSound("fallbomb");
+            }
         }
 
         bomb->FallBomb();
@@ -618,11 +636,13 @@ void Map::reset() {
 }
 
 void Map::checkGameOver() {
-    if(this->myMario->getMario()->getPosY() > 800){
+    if(this->myMario->getMario()->getPosY() > 750){
+        playSound("soltrap");
         playSound("gameover");
         gameIsOver = true;
     }
     if(gameIsOver){
+        this->soundManager->musique.stop();
         if(loopDeath == 0) {
             ScreenLabel * label = new ScreenLabel();
             label->setPos(scroll->value() + 410, 300);
@@ -693,6 +713,25 @@ void Map::playSound(QString sound){
     else if(sound == "gameover" && !soundPlayed){
         this->soundManager->gameover.play();
         soundPlayed = true;
+    }
+    else if(sound == "explosion" && !soundPlayed){
+        this->soundManager->explosion.play();
+        this->soundManager->gameover.play();
+        soundPlayed = true;
+    }
+    else if(sound == "bulltrap" && !soundPlayed){
+        this->soundManager->bulltrap.play();
+        this->soundManager->gameover.play();
+        soundPlayed = true;
+    }
+    else if(sound == "jump" && !soundPlayed){
+        this->soundManager->jump.play();
+    }
+    else if(sound == "bip" && !soundPlayed){
+        this->soundManager->bip.play();
+    }
+    else if(sound == "fallbomb" && !soundPlayed){
+        this->soundManager->fallbomb.play();
     }
 }
 
