@@ -11,7 +11,7 @@ BullTrap::BullTrap( int length, QString fileL, QString fileR, int posX, int posY
     this->fileR = fileR;
     this->mDirection = mDirection;
     this->name = "bulltrap";
-    this->velocity = 5;
+    this->velocity = 20;
 }
 
 
@@ -59,21 +59,24 @@ QString BullTrap::getName() {
 
 void BullTrap::moveBullTrap()
 {
-
-    qDebug() << "move bulltrap";
     //déplacement
-    if(posX > 6260)
-    {
-        posX -= velocity;
-        if(posX <= 6260)
-            mDirection = 1;
-    }
-    else if(posX < 6886)
+    //changement de direction
+    if(this->getPosX() < 6260)
+        mDirection = 1;
+    if(this->getPosX() > 6866)
+        mDirection = 0;
+
+    //déplacement en fonction de la direction
+    if(mDirection == 1) //if right
     {
         posX += velocity;
-        if(posX >= 6886)
-            mDirection = 0;
     }
+    if(mDirection == 0) //if left
+    {
+        posX -= velocity;
+    }
+
+
     //partie graphique
     //nextFrame();
     this->setPos(posX, posY);
