@@ -122,9 +122,9 @@
 	"mario": {
 	  "nom": "mario",
 	  "posX":"100",
-	  "posY":"665",
+	  "posY":"656",
 	  "length":"1",
-	  "image": "mario_stop.png"
+	  "image": "marioskate.png"
 	},	
 	"bulltrap": {
 		"1" : {
@@ -551,6 +551,13 @@
 		}
 	},	
 	"brickstrap": {
+		"404" : {
+		  "posX":"164",
+		  "posY":"576",
+		  "length":"1",
+		  "activation":"down",
+		  "image": "bricktrap.png"
+		},
 		"40" : {
 		  "posX":"1585",
 		  "posY":"576",

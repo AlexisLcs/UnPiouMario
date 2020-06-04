@@ -5,10 +5,15 @@ Sol::Sol( int length, QString file, int posX, int posY, int visible, QGraphicsIt
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
     setFlag(ItemClipsToShape);
-    mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\" + file);
+    this->visible = visible;
+    if(visible == 1){
+        mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\hide" + file);
+    }
+    else{
+        mPixmap = QPixmap("..\\UnPiouMario\\images\\objects\\" + file);
+    }
     this->posX = posX;
     this->posY = posY;
-    this->visible = visible;
     this->name = "sol";
 }
 
