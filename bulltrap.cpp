@@ -1,5 +1,6 @@
 #include "bulltrap.h"
 
+//constructeur
 BullTrap::BullTrap( int length, QString fileL, QString fileR, int posX, int posY, int mDirection, QGraphicsItem *parent)
     :QGraphicsItem(parent),mCurrentFrame(0), mLength(length)
 {
