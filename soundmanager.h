@@ -11,6 +11,7 @@ public:
     QSoundEffect spikes;
     QSoundEffect soltrap;
     QSoundEffect gameover;
+    QSoundEffect win;
 };
 
 #endif // SOUNDMANAGER_H

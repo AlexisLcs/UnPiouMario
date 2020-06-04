@@ -144,7 +144,8 @@ void Mario::moveRight()
     if(goRight && this->getPosX() <= 7880){
         if(this->getPosX() >= 600){
             this->setValueScroll(this->scroll->value() + 10);
-            this->getCounter()->setX(this->getCounter()->x() + 10);
+            if(this->scroll->value() < 6802)
+                this->getCounter()->setX(this->getCounter()->x() + 10);
         }
         goLeft = true;
         setPos(x() + this->velocity[0],y());

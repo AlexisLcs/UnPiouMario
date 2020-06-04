@@ -197,11 +197,13 @@ void Map::initPlayField(){
 
     Q_FOREACH(Castle * castle, *listeCastle){
         castle->setPos(castle->getPosX(), castle->getPosY());
+        castelPosition = castle->getPosX();
         addItem(castle);
     }
 
     Q_FOREACH(FlagEND * flagend, *listeFlagEND){
         flagend->setPos(flagend->getPosX(), flagend->getPosY());
+        winPosition = flagend->getPosX();
         addItem(flagend);
     }
 
@@ -301,6 +303,8 @@ void Map::Refresh()
     // Check Game Over
     checkGameOver();
 
+    // Check Win
+    checkWin();
 }
 
 void Map::collisionMarioTraps(){
@@ -309,6 +313,8 @@ void Map::collisionMarioTraps(){
         if(Spikes * spike = qgraphicsitem_cast<Spikes *>(item)){
             playSound("spikes");
             spike->setPixMap(spike->getFilename());
+
+            /* GAME OVER */
             gameIsOver = true;
         }
         else if(SolTrap * solTrap = qgraphicsitem_cast<SolTrap *>(item)){
@@ -519,6 +525,33 @@ void Map::checkGameOver() {
     }
 }
 
+void Map::checkWin() {
+    if(this->myMario->getMario()->getPosX() >= winPosition && !winChecked){
+        ScreenLabel * label = new ScreenLabel();
+        label->setPos(scroll->value() + 410, 300);
+        label->setPlainText("YOU WIN!");
+        label->setDefaultTextColor(Qt::white);
+        label->setScale(5);
+        label->setVisible(true);
+        addItem(label);
+
+        playSound("win");
+        winChecked = true;
+    }
+    if(winChecked){
+        if(this->myMario->getMario()->getPosX() <= castelPosition + 200) {
+            this->myMario->getMario()->moveRight();
+        }
+
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Up", false);
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Left");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Left", false);
+        this->myMario->getMario()->getInputMap()->remove("Qt::Key_Right");
+        this->myMario->getMario()->getInputMap()->insert("Qt::Key_Right", false);
+    }
+}
+
 void Map::playSound(QString sound){
     if(sound == "spikes" && !soundPlayed){
         this->soundManager->spikes.play();
@@ -527,6 +560,9 @@ void Map::playSound(QString sound){
     else if(sound == "soltrap" && !soundPlayed){
         this->soundManager->soltrap.play();
         this->soundManager->gameover.play();
+    }
+    else if(sound == "win" && !soundPlayed){
+        this->soundManager->win.play();
     }
 
     soundPlayed = true;

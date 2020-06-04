@@ -48,6 +48,7 @@ public:
     void playSound(QString sound);
     Entity *getMyMario() const;
     void setMyMario(Entity *value);
+    void checkWin();
 
 public slots:
     void Refresh();
@@ -67,8 +68,9 @@ private:
     int deathCounter = 0;
     int loopDeath = 0;
     bool soundPlayed = false;
-
-
+    int winPosition = 0;
+    bool winChecked = false;
+    int castelPosition = 0;
 };
 
 #endif // MAP_H
