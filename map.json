@@ -114,8 +114,8 @@
 	  "image": "castleRigth.png"
 	},
 	"flagEND": {
-	  "posX":"7650",
-	  "posY":"266",
+	  "posX":"7636",
+	  "posY":"180",
 	  "length":"1",
 	  "image": "flagEND.png"
 	},		
@@ -687,13 +687,6 @@
 		"14" : {
 		  "posX":"7630",
 		  "posY":"489",
-		  "length":"1",
-		  "activation":"all",
-		  "image": "bricktrap.png"
-		},
-		"17" : {
-		  "posX":"7630",
-		  "posY":"339",
 		  "length":"1",
 		  "activation":"all",
 		  "image": "bricktrap.png"

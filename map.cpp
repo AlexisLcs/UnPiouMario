@@ -323,59 +323,97 @@ void Map::collisionMarioTraps(){
             }
         }
         else if(BrickTrap * brickTrap = qgraphicsitem_cast<BrickTrap *>(item)){
-            if(brickTrap->getActivation() == "all" && !brickTrap->getIsActivated()){
-                brickTrap->setPixMap(brickTrap->getFilename());
-                brickTrap->setIsActivated(true);
-            }
-            if(this->myMario->getMario()->getIsJumping() &&
-                       ((this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50)) ||
-                       (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX()))) &&
-                       this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() + 50)
-            {
-                if(brickTrap->getActivation() == "down" && !brickTrap->getIsActivated()){
+            if(brickTrap->getActivation() == "all"){
+                if(!brickTrap->getIsActivated()){
                     brickTrap->setPixMap(brickTrap->getFilename());
                     brickTrap->setIsActivated(true);
                 }
-                if(brickTrap->getIsActivated()){
-                    brickTrap->setPixMap(brickTrap->getFilename());
-                    this->myMario->getMario()->setIsFalling(true);
-                    this->myMario->getMario()->setIsJumping(false);
-                    this->myMario->getMario()->resetJump();
-                    this->myMario->getMario()->setGoRight(true);
-                    this->myMario->getMario()->setGoLeft(true);
-                    this->myMario->getMario()->setIsOnGround(false);
+                if(this->myMario->getMario()->getIsJumping() &&
+                           ((this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50)) ||
+                           (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX()))) &&
+                           this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() + 50)
+                {
+                    if(brickTrap->getIsActivated()){
+                        brickTrap->setPixMap(brickTrap->getFilename());
+                        this->myMario->getMario()->setIsFalling(true);
+                        this->myMario->getMario()->setIsJumping(false);
+                        this->myMario->getMario()->resetJump();
+                        this->myMario->getMario()->setGoRight(true);
+                        this->myMario->getMario()->setGoLeft(true);
+                        this->myMario->getMario()->setIsOnGround(false);
+                    }
+                }
+                else if(this->myMario->getMario()->getPosX() <= brickTrap->getPosX() + 50 &&
+                        this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() + 50 &&
+                        !this->myMario->getMario()->getIsOnGround())
+                {
+                    if(brickTrap->getIsActivated()){
+                        this->myMario->getMario()->setGoLeft(false);
+                        this->myMario->getMario()->setGoRight(true);
+                    }
+                }
+                else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
+                        this->myMario->getMario()->getPosX() <= brickTrap->getPosX() &&
+                        !this->myMario->getMario()->getIsOnGround())
+                {
+                    if(brickTrap->getIsActivated()){
+                        this->myMario->getMario()->setGoRight(false);
+                        this->myMario->getMario()->setGoLeft(true);
+                    }
                 }
             }
-            else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
-                    this->myMario->getMario()->getPosX()<= brickTrap->getPosX() + 50 &&
-                    this->myMario->getMario()->getPosY() + 70 <= brickTrap->getPosY() + 50 &&
-                    (this->myMario->getMario()->getIsFalling() || !this->myMario->getMario()->getIsOnGround()))
+            else if(brickTrap->getActivation() == "down")
             {
-                if(brickTrap->getIsActivated()){
-                    this->myMario->getMario()->setIsFalling(false);
-                    this->myMario->getMario()->setIsJumping(false);
-                    this->myMario->getMario()->resetJump();
-                    this->myMario->getMario()->setGoRight(true);
-                    this->myMario->getMario()->setGoLeft(true);
-                    this->myMario->getMario()->setIsOnGround(true);
+                if(this->myMario->getMario()->getIsJumping() &&
+                           ((this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX() && (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50)) ||
+                           (this->myMario->getMario()->getPosX() + 10 <= brickTrap->getPosX() + 50 && (this->myMario->getMario()->getPosX() + 40 >= brickTrap->getPosX()))) &&
+                           this->myMario->getMario()->getPosY() + 70 >= brickTrap->getPosY() + 50)
+                {
+                    if(brickTrap->getActivation() == "down" && !brickTrap->getIsActivated()){
+                        brickTrap->setPixMap(brickTrap->getFilename());
+                        brickTrap->setIsActivated(true);
+                    }
+                    if(brickTrap->getIsActivated()){
+                        brickTrap->setPixMap(brickTrap->getFilename());
+                        this->myMario->getMario()->setIsFalling(true);
+                        this->myMario->getMario()->setIsJumping(false);
+                        this->myMario->getMario()->resetJump();
+                        this->myMario->getMario()->setGoRight(true);
+                        this->myMario->getMario()->setGoLeft(true);
+                        this->myMario->getMario()->setIsOnGround(false);
+                    }
                 }
-            }
-            else if(this->myMario->getMario()->getPosX() <= brickTrap->getPosX() + 50 &&
-                    this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() + 50 &&
-                    !this->myMario->getMario()->getIsOnGround())
-            {
-                if(brickTrap->getIsActivated()){
-                    this->myMario->getMario()->setGoLeft(false);
-                    this->myMario->getMario()->setGoRight(true);
+                else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
+                        this->myMario->getMario()->getPosX()<= brickTrap->getPosX() + 50 &&
+                        this->myMario->getMario()->getPosY() + 70 <= brickTrap->getPosY() + 50 &&
+                        (this->myMario->getMario()->getIsFalling() || !this->myMario->getMario()->getIsOnGround()))
+                {
+                    if(brickTrap->getIsActivated()){
+                        this->myMario->getMario()->setIsFalling(false);
+                        this->myMario->getMario()->setIsJumping(false);
+                        this->myMario->getMario()->resetJump();
+                        this->myMario->getMario()->setGoRight(true);
+                        this->myMario->getMario()->setGoLeft(true);
+                        this->myMario->getMario()->setIsOnGround(true);
+                    }
                 }
-            }
-            else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
-                    this->myMario->getMario()->getPosX() <= brickTrap->getPosX() &&
-                    !this->myMario->getMario()->getIsOnGround())
-            {
-                if(brickTrap->getIsActivated()){
-                    this->myMario->getMario()->setGoRight(false);
-                    this->myMario->getMario()->setGoLeft(true);
+                else if(this->myMario->getMario()->getPosX() <= brickTrap->getPosX() + 50 &&
+                        this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() + 50 &&
+                        !this->myMario->getMario()->getIsOnGround())
+                {
+                    if(brickTrap->getIsActivated()){
+                        this->myMario->getMario()->setGoLeft(false);
+                        this->myMario->getMario()->setGoRight(true);
+                    }
+                }
+                else if(this->myMario->getMario()->getPosX() + 50 >= brickTrap->getPosX() &&
+                        this->myMario->getMario()->getPosX() <= brickTrap->getPosX() &&
+                        !this->myMario->getMario()->getIsOnGround())
+                {
+                    if(brickTrap->getIsActivated()){
+                        this->myMario->getMario()->setGoRight(false);
+                        this->myMario->getMario()->setGoLeft(true);
+                    }
                 }
             }
         }
@@ -416,7 +454,7 @@ void Map::collisionMario(){
                 }
                 else if(this->myMario->getMario()->getPosX() + 50 >= pipe->getPosX() &&
                         this->myMario->getMario()->getPosX() <= pipe->getPosX() &&
-                        this->myMario->getMario()->getPosY() +70 >= pipe->getPosY() +20)
+                        this->myMario->getMario()->getPosY() + 70 >= pipe->getPosY() +20)
                 {
                     this->myMario->getMario()->setGoRight(false);
                     this->myMario->getMario()->setGoLeft(true);

@@ -12,14 +12,14 @@ FlagEND::FlagEND( int length, QString file, int posX, int posY, QGraphicsItem *p
 
 
 QRectF FlagEND::boundingRect() const {
-    return QRectF(0,0,154*mLength,460);
+    return QRectF(0,0,89*mLength,546);
 }
 
 void FlagEND::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(widget);
     Q_UNUSED(option);
-    for(int i = 0; i < 154*mLength; ++i) {
-    painter->drawPixmap(i*154,0, mPixmap, mCurrentFrame, 0,154, 460);
+    for(int i = 0; i < 89*mLength; ++i) {
+    painter->drawPixmap(i*89,0, mPixmap, mCurrentFrame, 0,89, 546);
     }
     setTransformOriginPoint(boundingRect().center());
 }
