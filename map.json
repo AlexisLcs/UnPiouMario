@@ -126,6 +126,67 @@
 			"length":"1",
 			"image":"stairblock.png"
 			},
+			},
+		"5" : {
+			"posX":"3188",
+			"posY":"406",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"6" : {
+			"posX":"3188",
+			"posY":"342",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"7" : {
+			"posX":"3188",
+			"posY":"278",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"8" : {
+			"posX":"3443",
+			"posY":"470",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"9" : {
+			"posX":"3507",
+			"posY":"534",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"10" : {
+			"posX":"3571",
+			"posY":"598",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"11" : {
+			"posX":"3635",
+			"posY":"662",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"12" : {
+			"posX":"3443",
+			"posY":"534",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"13" : {
+			"posX":"3443",
+			"posY":"598",
+			"length":"1",
+			"image":"stairblock.png"
+			},
+		"14" : {
+			"posX":"3443",
+			"posY":"662",
+			"length":"1",
+			"image":"stairblock.png"
+			},
 	},
 	"castle": {
 	  "posX":"7775",
