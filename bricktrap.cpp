@@ -10,6 +10,7 @@ BrickTrap::BrickTrap( int length, QString file, int posX, int posY, QString acti
     this->activation = activation;
     this->name = "bricktrap";
     this->filename = file;
+    this->isActivated = false;
 }
 
 
@@ -48,4 +49,12 @@ QString BrickTrap::getFilename() {
 
 QString BrickTrap::getActivation() {
     return this->activation;
+}
+
+bool BrickTrap::getIsActivated() {
+    return this->isActivated;
+}
+
+void BrickTrap::setIsActivated(bool value) {
+    this->isActivated = value;
 }

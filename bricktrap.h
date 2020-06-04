@@ -20,6 +20,8 @@ public:
     QString getFilename();
     QString getActivation();
     void setPixMap(QString file);
+    bool getIsActivated();
+    void setIsActivated(bool value);
 
 
 private:
@@ -29,6 +31,7 @@ private:
     int mDirection;
     int posX;
     int posY;
+    bool isActivated;
     QString filename;
     QString activation;
     QString name;

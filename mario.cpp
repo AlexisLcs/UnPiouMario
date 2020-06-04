@@ -172,7 +172,7 @@ void Mario::Jump()
         }
         else if(this->velocity[1] == MAXHEIGHT+1 && isFalling) {
             isJumping = false;
-            isFalling = false;
+            //isFalling = false;
             this->velocity[1] = MAXHEIGHT;
             inputMap->remove("Qt::Key_Up");
             inputMap->insert("Qt::Key_Up", false);
