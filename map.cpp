@@ -483,6 +483,8 @@ void Map::reset() {
     /* Generate a new scene */
     initPlayField();
     setValueScroll(0);
+
+    soundPlayed = false;
 }
 
 void Map::checkGameOver() {
@@ -509,7 +511,7 @@ void Map::checkGameOver() {
         }
         ++loopDeath;
     }
-    if(loopDeath > 2000/TIMER_REFRESH) {
+    if(loopDeath > 2500/TIMER_REFRESH) {
         ++deathCounter;
         loopDeath = 0;
         gameIsOver = false;
@@ -518,12 +520,16 @@ void Map::checkGameOver() {
 }
 
 void Map::playSound(QString sound){
-    if(sound == "spikes"){
+    if(sound == "spikes" && !soundPlayed){
         this->soundManager->spikes.play();
+        this->soundManager->gameover.play();
     }
-    else if(sound == "soltrap"){
+    else if(sound == "soltrap" && !soundPlayed){
         this->soundManager->soltrap.play();
+        this->soundManager->gameover.play();
     }
+
+    soundPlayed = true;
 }
 
 void Map::initScroll(){

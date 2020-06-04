@@ -10,6 +10,7 @@ public:
     SoundManager();
     QSoundEffect spikes;
     QSoundEffect soltrap;
+    QSoundEffect gameover;
 };
 
 #endif // SOUNDMANAGER_H

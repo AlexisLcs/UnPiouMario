@@ -66,6 +66,7 @@ private:
     bool gameIsOver = false;
     int deathCounter = 0;
     int loopDeath = 0;
+    bool soundPlayed = false;
 
 
 };
