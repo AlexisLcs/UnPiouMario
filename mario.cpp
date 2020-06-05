@@ -131,9 +131,12 @@ void Mario::resetJump(){
 //Permet à Mario de bouger à gauche
 void Mario::moveLeft()
 {
+    QPixmap pixMario;
+    if(isLooking){
+        pixMario = QPixmap("..\\UnPiouMario\\images\\mario\\marioskateL.png");
+        this->setPixmap(pixMario);
+    }
     isLooking = false;
-    QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskateL.png");
-    this->setPixmap(pixMario);
     if(goLeft && this->getPosX() >= 0){
         if(this->getPosX() <= 7400){
             this->setValueScroll(this->scroll->value() - 10);
@@ -149,9 +152,12 @@ void Mario::moveLeft()
 //Permet à Mario de bouger à droite
 void Mario::moveRight()
 {
+    QPixmap pixMario;
+    if(!isLooking){
+        pixMario = QPixmap("..\\UnPiouMario\\images\\mario\\marioskate.png");
+        this->setPixmap(pixMario);
+    }
     isLooking = true;
-    QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
-    this->setPixmap(pixMario);
     if(goRight && this->getPosX() <= 7880){
         if(this->getPosX() >= 600){
             this->setValueScroll(this->scroll->value() + 10);

@@ -745,6 +745,12 @@ void Map::checkWin() {
         winChecked = true;
     }
     if(winChecked){
+        QList<Castle*> * listeCastleRight = (QList<Castle*>*)getGraphicsItem("castleR");
+        Q_FOREACH(Castle * castle, *listeCastleRight){
+            castle->setPos(castle->getPosX(), castle->getPosY());
+            castelPosition = castle->getPosX(); // Récupération de la position du chateau de fin.
+            addItem(castle);
+        }
         // Déplace automatiquement le mario dans le chateau en fin de niveau.
         if(this->myMario->getMario()->getPosX() <= castelPosition) {
             this->myMario->getMario()->moveRight();
