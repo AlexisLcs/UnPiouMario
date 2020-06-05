@@ -12,7 +12,6 @@ public:
     QSoundEffect spikes;
     QSoundEffect soltrap;
     QSoundEffect gameover;
-    QSoundEffect gameovermario;
     QSoundEffect win;
     QSoundEffect explosion;
     QSoundEffect bulltrap;
