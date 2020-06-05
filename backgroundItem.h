@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 
+//classe pour le background de la map
 class BackgroundItem : public QGraphicsPixmapItem
 {
 public:

@@ -691,7 +691,6 @@ void Map::checkGameOver() {
 
     // Le joueur a perdu s'il tombe dans un trou.
     if(this->myMario->getMario()->getPosY() > 750){
-        this->soundManager->gameovermario.play();
         playSound("soltrap");
         playSound("gameover");
         gameIsOver = true;
@@ -773,7 +772,6 @@ void Map::playSound(QString sound){
     if(sound == "spikes" && !soundPlayed){
         this->soundManager->spikes.play();
         this->soundManager->gameover.play();
-        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -791,7 +789,6 @@ void Map::playSound(QString sound){
     // Son de la défaite.
     else if(sound == "gameover" && !soundPlayed){
         this->soundManager->gameover.play();
-        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -799,7 +796,6 @@ void Map::playSound(QString sound){
     else if(sound == "explosion" && !soundPlayed){
         this->soundManager->explosion.play();
         this->soundManager->gameover.play();
-        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -807,7 +803,6 @@ void Map::playSound(QString sound){
     else if(sound == "bulltrap" && !soundPlayed){
         this->soundManager->bulltrap.play();
         this->soundManager->gameover.play();
-        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 

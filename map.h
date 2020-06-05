@@ -12,7 +12,6 @@
 #include <QSoundEffect>
 #include <QtMath>
 #include <QThread>
-
 #include "brick.h"
 #include "superbrick.h"
 #include "sol.h"
