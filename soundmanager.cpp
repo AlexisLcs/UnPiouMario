@@ -16,9 +16,6 @@ SoundManager::SoundManager()
     this->gameover.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\gameover.wav"));
     this->gameover.setLoopCount(0);
 
-    this->gameovermario.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\gameovermario.wav"));
-    this->gameovermario.setLoopCount(0);
-
     this->win.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\win.wav"));
     this->win.setLoopCount(0);
 
