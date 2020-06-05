@@ -26,6 +26,10 @@ int Mario::getPosX() {
     return this->posX;
 }
 
+void Mario::setPosX(int value) {
+    this->posX = value;
+}
+
 int Mario::getPosY() {
     return this->posY;
 }
@@ -128,6 +132,8 @@ void Mario::resetJump(){
 void Mario::moveLeft()
 {
     isLooking = false;
+    QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskateL.png");
+    this->setPixmap(pixMario);
     if(goLeft && this->getPosX() >= 0){
         if(this->getPosX() <= 7400){
             this->setValueScroll(this->scroll->value() - 10);
@@ -144,6 +150,8 @@ void Mario::moveLeft()
 void Mario::moveRight()
 {
     isLooking = true;
+    QPixmap pixMario("..\\UnPiouMario\\images\\mario\\marioskate.png");
+    this->setPixmap(pixMario);
     if(goRight && this->getPosX() <= 7880){
         if(this->getPosX() >= 600){
             this->setValueScroll(this->scroll->value() + 10);

@@ -18,6 +18,7 @@ Map::Map(QScrollBar* s, QJsonObject listAll, QObject *parent): QGraphicsScene(0,
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(Refresh()));
     m_timer->start(TIMER_REFRESH);
+
 }
 
 Map::~Map()
@@ -129,11 +130,11 @@ QList<QGraphicsItem*> * Map::getGraphicsItem(QString name){
     return listeRetour;
 }
 
+
 // Méthode d'initialisation des objets de la carte.
 void Map::initPlayField(){
 
     setSceneRect(0,0,8000,780); // Dimension du niveau.
-
     // Récupération des objets graphiques.
     QList<Sol*> * listSols = (QList<Sol*>*)getGraphicsItem("sol");
     QList<Brick*> * listBricks = (QList<Brick*>*)getGraphicsItem("bricks");
@@ -146,8 +147,6 @@ void Map::initPlayField(){
     QList<Spikes*> * listeSpikes = (QList<Spikes*>*)getGraphicsItem("spikes");
     QList<BrickTrap*> * listBricksTraps = (QList<BrickTrap*>*)getGraphicsItem("brickstrap");
     QList<BombeTrap*> * listBombesTraps = (QList<BombeTrap*>*)getGraphicsItem("bombstrap");
-    QList<Stairs*> * listStairs = (QList<Stairs*>*)getGraphicsItem("stairs");
-    QList<StairBlock*> * listStairBlock = (QList<StairBlock*>*)getGraphicsItem("stairblock");
     QList<BullTrap*> * listBullTrap = (QList<BullTrap*>*)getGraphicsItem("bulltrap");
     QList<Castle*> * listeCastleRight = (QList<Castle*>*)getGraphicsItem("castleR");
 
@@ -692,6 +691,7 @@ void Map::checkGameOver() {
 
     // Le joueur a perdu s'il tombe dans un trou.
     if(this->myMario->getMario()->getPosY() > 750){
+        this->soundManager->gameovermario.play();
         playSound("soltrap");
         playSound("gameover");
         gameIsOver = true;
@@ -704,14 +704,12 @@ void Map::checkGameOver() {
         // Initialisation des composants du game over à la première itération de la boucle d'attente.
         if(loopDeath == 0) {
             // Titre "GAME OVER"
-            ScreenLabel * label = new ScreenLabel();
-            label->setPos(scroll->value() + 410, 300);
-            label->setPlainText("GAME OVER");
-            label->setDefaultTextColor(Qt::white);
-            label->setScale(5);
-            label->setVisible(true);
 
-            addItem(label);
+            QPixmap * gameoverpixmap = new QPixmap("..\\UnPiouMario\\images\\gameover.png");
+            QGraphicsPixmapItem * pixGameover = new QGraphicsPixmapItem(*gameoverpixmap, nullptr);
+            pixGameover->setPos(scroll->value() + 140, 336);
+
+            addItem(pixGameover);
 
             // Bloquage des entrées du clavier.
             this->myMario->getMario()->getInputMap()->remove("Qt::Key_Up");
@@ -734,14 +732,14 @@ void Map::checkGameOver() {
 // Permet de vérifier si le joueur a gagné la partie.
 void Map::checkWin() {
     if(this->myMario->getMario()->getPosX() >= winPosition && !winChecked){
+
         // Initialisation des composants de l'état "win".
-        ScreenLabel * label = new ScreenLabel();
-        label->setPos(scroll->value() + 410, 300);
-        label->setPlainText("YOU WIN!");
-        label->setDefaultTextColor(Qt::white);
-        label->setScale(5);
-        label->setVisible(true);
-        addItem(label);
+        QPixmap * winpixmap = new QPixmap("..\\UnPiouMario\\images\\win.png");
+        QGraphicsPixmapItem * pixwin = new QGraphicsPixmapItem(*winpixmap, nullptr);
+        pixwin->setPos(scroll->value() + 143, 330);
+
+        addItem(pixwin);
+
         this->soundManager->musique.stop();
         playSound("win"); // Musique de la victoire.
         winChecked = true;
@@ -769,6 +767,7 @@ void Map::playSound(QString sound){
     if(sound == "spikes" && !soundPlayed){
         this->soundManager->spikes.play();
         this->soundManager->gameover.play();
+        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -786,6 +785,7 @@ void Map::playSound(QString sound){
     // Son de la défaite.
     else if(sound == "gameover" && !soundPlayed){
         this->soundManager->gameover.play();
+        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -793,6 +793,7 @@ void Map::playSound(QString sound){
     else if(sound == "explosion" && !soundPlayed){
         this->soundManager->explosion.play();
         this->soundManager->gameover.play();
+        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
@@ -800,12 +801,27 @@ void Map::playSound(QString sound){
     else if(sound == "bulltrap" && !soundPlayed){
         this->soundManager->bulltrap.play();
         this->soundManager->gameover.play();
+        this->soundManager->gameovermario.play();
         soundPlayed = true;
     }
 
     // Bruitage du saut de mario.
     else if(sound == "jump" && !soundPlayed){
-        this->soundManager->jump.play();
+        int jumprandom = qrand()%3+1;
+        switch(jumprandom){
+            case 1:
+            this->soundManager->jump.play();
+                this->soundManager->jumpbis.play();
+                break;
+            case 2:
+                this->soundManager->jump.play();
+                this->soundManager->jumpter.play();
+                break;
+            case 3:
+                this->soundManager->jump.play();
+                this->soundManager->jumpqat.play();
+                break;
+        }
     }
 
     // Bruitage des collisions avec une brique.

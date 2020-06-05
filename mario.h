@@ -73,6 +73,7 @@ public:
     void Fall();
     void spriteUpdater();
     int getPosX();
+    void setPosX(int value);
     int getPosY();
     void moveMario();
 };

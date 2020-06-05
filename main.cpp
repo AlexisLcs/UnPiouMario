@@ -7,10 +7,12 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QScreen>
+#include <QIcon>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDesktopWidget>
+#include <QSplashScreen>
 
 #include "brick.h"
 #include "map.h"
@@ -60,6 +62,13 @@ int main(int argc, char *argv[])
 {
     //creation de la vue
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon("..\\UnPiouMario\\images\\unpiou"));
+
+    //Add Splash Screen
+    QSplashScreen *splash = new QSplashScreen;
+    splash->setPixmap(QPixmap("..\\UnPiouMario\\images\\title.png"));
+
+
     QGraphicsScene * scene = new QGraphicsScene;
     QGraphicsView view(scene);
     view.setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
@@ -78,11 +87,17 @@ int main(int argc, char *argv[])
     view.setBackgroundBrush(QColor(111, 135, 249)); //on definit la couleur du background
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); //desactivation du scroll manuel
     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scenemap->initScroll(); //initialisation du scroll
     view.setWindowTitle("UnPiouMario !"); //titre de la fenetre
 
+    splash->show();
+
+    QTimer::singleShot(2000,splash,SLOT(close()));
+
+    QTimer::singleShot(2000,&view,SLOT(show()));
+    QTimer::singleShot(2010,scenemap,SLOT(initScroll()));
     //affichage
-    view.show();
-    scenemap->initScroll(); //initialisation du scroll
+    //view.show();
 
     center(view);
 

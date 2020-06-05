@@ -32,19 +32,19 @@ SoundManager::SoundManager()
 
     this->jump.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\jump.wav"));
     this->jump.setLoopCount(0);
-    this->jump.setVolume(.40f);
+    this->jump.setVolume(.20f);
 
     this->jumpbis.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\jumpbis.wav"));
     this->jumpbis.setLoopCount(0);
-    this->jumpbis.setVolume(.40f);
+    this->jumpbis.setVolume(.50f);
 
     this->jumpter.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\jumpter.wav"));
     this->jumpter.setLoopCount(0);
-    this->jumpter.setVolume(.40f);
+    this->jumpter.setVolume(.50f);
 
     this->jumpqat.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\jumpqat.wav"));
     this->jumpqat.setLoopCount(0);
-    this->jumpqat.setVolume(.40f);
+    this->jumpqat.setVolume(.50f);
 
 
     this->bip.setSource(QUrl::fromLocalFile("..\\UnPiouMario\\sounds\\bip.wav"));
